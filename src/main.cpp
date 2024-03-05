@@ -12,7 +12,7 @@
 int printMenu() 
 {
    std::string userInput = "";
-   std::cout << "Welcome to Caden's Password Manager!\n\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
+   std::cout << "\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
              << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
    if(!(std::cin >> userInput)) {
       throw std::runtime_error("Could not obtain choice! Aborting program...");
@@ -44,7 +44,8 @@ int main()
    HashTable passwordManager(128);
    bool keepGoing = true;
    std::string userInput = "";
-   
+   std::cout << "Welcome to Caden's Password Manager!\n"
+
    while(keepGoing) {
       userInput = "";
       switch(printMenu()) {
