@@ -15,7 +15,7 @@ HashTable::HashTable(std::size_t size)
    m_table.resize(size);
    m_numberBuckets = 0;
    m_vectorSize = size;
-   for(auto i = m_table.begin(); i != m_table.end(); i++) {
+   for(auto i = m_table.begin(); i != m_table.end(); ++i) {
       *i = std::make_pair("NULL", "NULL");
    }
 }
