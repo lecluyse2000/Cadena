@@ -20,7 +20,7 @@ int printMenu()
 
    while(true) {
       if(userInput.size() != 1 || !std::isdigit(userInput[0]) || (std::stoi(userInput) > 6 || std::stoi(userInput) < 1)) {
-         std::cout << "Incorrect input! Try again.\nYour choice: "; 
+         std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
          if(!(std::cin >> userInput)) {
             throw std::runtime_error("Could not obtain choice! Aborting program...");
          }
@@ -44,7 +44,7 @@ int main()
    HashTable passwordManager(128);
    bool keepGoing = true;
    std::string userInput = "";
-   std::cout << "Welcome to Caden's Password Manager!\n"
+   std::cout << "Welcome to Caden's Password Manager!\n";
 
    while(keepGoing) {
       userInput = "";
