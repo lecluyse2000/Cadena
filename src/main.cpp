@@ -4,6 +4,7 @@
 //Note: I realize this could've been implemented (probably in a better way too) using std::unordered_map, I just wanted to better understand the data structure
 
 #include <iostream>
+#include <limits>
 #include "hashtable.h"
 #include <sodium.h>
 #include <stdexcept>
@@ -11,25 +12,22 @@
 //This function will simply print the menu and take the user's choice
 int printMenu() 
 {
-   std::string userInput = "";
+   int userInput = 0;
    std::cout << "\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
              << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
-   if(!(std::cin >> userInput)) {
-      throw std::runtime_error("Could not obtain choice! Aborting program...");
-   }
 
    while(true) {
-      if(userInput.size() != 1 || !std::isdigit(userInput[0]) || (std::stoi(userInput) > 6 || std::stoi(userInput) < 1)) {
+      std::cin >> userInput;
+      if(std::cin.fail() || userInput > 6 || userInput < 1) {
+         std::cin.clear();
+         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
          std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
-         if(!(std::cin >> userInput)) {
-            throw std::runtime_error("Could not obtain choice! Aborting program...");
-         }
-         continue;
+      } else {
+         break;
       }
-      break;
    }
    std::cout << std::endl;
-   return std::stoi(userInput);
+   return userInput;
 }
 
 //Main driver code here
