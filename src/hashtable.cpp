@@ -10,6 +10,10 @@
 #include <iostream>
 #include "hashtable.h"
 
+#define PRIME_1 57649
+#define PRIME_2 86969
+
+
 HashTable::HashTable(std::size_t size)
 {
    m_table.resize(size);
@@ -42,10 +46,9 @@ int HashTable::getSize() const noexcept
 
 std::size_t HashTable::hashFunction(const std::string& key) const
 {
-   int primeNumber = 57649;
-   size_t hashValue = 0;
+   size_t hashValue = 76963;
    for(const auto& character : key) {
-      hashValue = (hashValue * primeNumber) + character;
+      hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
    return hashValue & (m_vectorSize - 1);
 }
