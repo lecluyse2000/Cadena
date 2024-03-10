@@ -19,12 +19,12 @@ HashTable::HashTable(std::size_t size)
    m_table.resize(size);
    m_numberBuckets = 0;
    m_vectorSize = size;
-   for(auto i = m_table.begin(); i != m_table.end(); ++i) {
-      *i = std::make_pair("NULL", "NULL");
+   for(auto& i : m_table) {
+      i = std::make_pair("NULL", "NULL");
    }
 }
 
-void HashTable::resize(std::size_t size)
+void HashTable::resize(const std::size_t size)
 {
    m_table.resize(size);
 }
