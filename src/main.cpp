@@ -9,22 +9,17 @@
 #include <sodium.h>
 #include <stdexcept>
 
-//This function will simply print the menu and take the user's choice
 int printMenu() 
 {
    std::string userInput = "";
    std::cout << "\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
              << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
 
-   while(true) {
-      if(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
-         std::cin.clear();
-         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-         std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
-      } else {
-         break;
-      }
-   }
+   while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
+   } 
    std::cout << std::endl;
    return std::stoi(userInput);
 }
