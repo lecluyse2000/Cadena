@@ -50,6 +50,17 @@ std::size_t HashTable::hashFunction(const std::string& key) const
    for(const auto& character : key) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
+
+   if(m_table[hashValue & (m_vectorSize - 1)].first != "NULL") {
+      for(std::size_t i = 0; i < m_vectorSize; ++i) {
+         if(m_table[i].first == "NULL") {
+            hashValue ^= i * (PRIME_2 >> 3);
+         }
+         if(m_table[hashValue & (m_vectorSize - 1)].first == "NULL") {
+            break;
+         }
+      }
+   }
    return hashValue & (m_vectorSize - 1);
 }
 
@@ -57,16 +68,10 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
 {
    bool keyExists = false;
    std::size_t hashValue = hashFunction(key);
-   if(m_table[hashValue].first != "NULL" && m_table[hashValue].first != key) {
-      std::cout << "Oh no! We have a collision!\n";
-      keyExists = true;
-   }
-   if(!keyExists) {
-      m_table[hashValue].first = key;
-      m_table[hashValue].second = value;
-      m_numberBuckets++;
-      std::cout << "The password was added!\n";
-   }
+   m_table[hashValue].first = key;
+   m_table[hashValue].second = value;
+   m_numberBuckets++;
+   std::cout << "The password was added!\n";
 }
 
 void HashTable::removeNode(const std::string& key)
