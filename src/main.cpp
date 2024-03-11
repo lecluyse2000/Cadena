@@ -9,11 +9,17 @@
 #include <sodium.h>
 #include <stdexcept>
 
-int printMenu() 
+
+void printMenu()
 {
-   std::string userInput = "";
    std::cout << "\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
              << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
+}
+
+int recieveUserInput() 
+{
+   std::string userInput = "";
+   printMenu();
 
    while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
       std::cin.clear();
@@ -40,7 +46,7 @@ int main()
 
    while(keepGoing) {
       userInput = "";
-      switch(printMenu()) {
+      switch(recieveUserInput()) {
          case 1:
             passwordManager.printTable();
             break;
