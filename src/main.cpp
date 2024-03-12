@@ -39,11 +39,100 @@ int main()
         return 1;
    } 
    
-   HashTable passwordManager(128);
+   HashTable passwordManager(256);
    bool keepGoing = true;
    std::string userInput = "";
    std::cout << "Welcome to Caden's Password Manager!\n";
-
+   const std::vector<const std::string> top_websites = {
+        "google.com",
+        "youtube.com",
+        "facebook.com",
+        "baidu.com",
+        "wikipedia.org",
+        "yahoo.com",
+        "amazon.com",
+        "qq.com",
+        "reddit.com",
+        "taobao.com",
+        "twitter.com",
+        "tmall.com",
+        "instagram.com",
+        "live.com",
+        "vk.com",
+        "sohu.com",
+        "jd.com",
+        "360.cn",
+        "weibo.com",
+        "sina.com.cn",
+        "yandex.ru",
+        "login.tmall.com",
+        "blogspot.com",
+        "netflix.com",
+        "linkedin.com",
+        "twitch.tv",
+        "google.com.hk",
+        "yahoo.co.jp",
+        "microsoft.com",
+        "aliexpress.com",
+        "microsoftonline.com",
+        "office.com",
+        "bing.com",
+        "pinterest.com",
+        "t.co",
+        "mail.ru",
+        "ebay.com",
+        "github.com",
+        "microsoftonline.com",
+        "whatsapp.com",
+        "imgur.com",
+        "msn.com",
+        "ok.ru",
+        "imdb.com",
+        "alibaba.com",
+        "stackexchange.com",
+        "aliexpress.com",
+        "huanqiu.com",
+        "wikia.com",
+        "bilibili.com",
+        "amazon.co.jp",
+        "adobe.com",
+        "dropbox.com",
+        "naver.com",
+        "google.co.jp",
+        "craigslist.org",
+        "salesforce.com",
+        "cnn.com",
+        "booking.com",
+        "googleusercontent.com",
+        "sogou.com",
+        "bbc.co.uk",
+        "aparat.com",
+        "fc2.com",
+        "tumblr.com",
+        "t.me",
+        "paypal.com",
+        "google.com.br",
+        "espncricinfo.com",
+        "zhihu.com",
+        "blogspot.in",
+        "gmw.cn",
+        "office365.com",
+        "amazon.de",
+        "amazon.in",
+        "yelp.com",
+        "alipay.com",
+        "nih.gov",
+        "nike.com",
+        "huffpost.com",
+        "pixnet.net",
+        "google.com.mx",
+        "weixin.qq.com",
+        "youth.cn",
+        "dailymotion.com",
+        "ifeng.com",
+        "google.co.uk",
+        "wikimedia.org"
+      };
    while(keepGoing) {
       userInput = "";
       switch(recieveUserInput()) {
@@ -59,6 +148,10 @@ int main()
             std::cout << "What is the name of the website you want to add? ";
             break;
          case 4:
+            for(const auto& i : top_websites) {
+               std::cout << "Hashvalue for " << i << " is: " << passwordManager.hashFunction(i) << '\n'; 
+               passwordManager.insertNode(i, "blablabla");
+            }
 
             break;
          case 5:
