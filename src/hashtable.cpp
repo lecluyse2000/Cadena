@@ -66,7 +66,6 @@ std::size_t HashTable::hashFunction(const std::string& key) const
 
 void HashTable::insertNode(const std::string& key, const std::string& value)
 {
-   bool keyExists = false;
    std::size_t hashValue = hashFunction(key);
    m_table[hashValue].first = key;
    m_table[hashValue].second = value;
