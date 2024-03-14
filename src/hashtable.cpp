@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include "hashtable.h"
+#include <algorithm>
 
 #define PRIME_1 57649
 #define PRIME_2 86969
@@ -20,16 +21,13 @@ HashTable::HashTable(const std::size_t size)
    m_numberBuckets = 0;
    m_vectorSize = size;
 
-   for(auto& i : m_table) {
-      i = std::make_pair("NULL", "NULL");
-   }
+   std::fill(m_table.begin(), m_table.end(), std::make_pair("NULL", "NULL"));
 }
 
 void HashTable::resize(const std::size_t size)
 {
    m_table.resize(size);
 }
-
 
 bool HashTable::isEmpty() const noexcept 
 {
@@ -99,9 +97,11 @@ std::string HashTable::searchTable(const std::string& key) const noexcept
 
 void HashTable::printTable() const noexcept
 {
-   for(const auto& i : m_table) {
-      if(i.first != "NULL") {
-         std::cout << "Website: " << i.first << "\nPassword: " << i.second << "\n\n";
+   auto printWebsite = [](const std::pair<std::string, std::string>& website) {
+      if(website.first != "NULL") {
+         std::cout << "Website: " << website.first << "\nPassword: " << website.second << "\n\n";
       }
-   }
+   };
+
+   std::for_each(m_table.begin(), m_table.end(), printWebsite);
 }
