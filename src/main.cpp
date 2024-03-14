@@ -26,6 +26,7 @@ int recieveUserInput()
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
    } 
+
    std::cout << std::endl;
    return std::stoi(userInput);
 }
@@ -35,9 +36,11 @@ int main()
 {
    //Initialize libsodium
    if (sodium_init() < 0) {
-        std::cerr << "Failed to initialize Libsodium" << std::endl;
-        return 1;
-   } 
+      std::cerr << "Failed to initialize Libsodium" << std::endl;
+      return 1;
+   } else {
+      std::cout << "Libsodium initialized successfully!\n\n";
+   }
    
    HashTable passwordManager(256);
    bool keepGoing = true;
@@ -133,6 +136,7 @@ int main()
         "google.co.uk",
         "wikimedia.org"
       };
+
    while(keepGoing) {
       userInput = "";
       switch(recieveUserInput()) {
