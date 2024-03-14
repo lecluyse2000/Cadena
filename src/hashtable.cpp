@@ -98,7 +98,7 @@ std::string HashTable::searchTable(const std::string& key) const noexcept
 void HashTable::printTable() const noexcept
 {
    //This is the first lambda function I have ever implemented
-   auto printWebsite = [](const login entry) {
+   auto printWebsite = [](const login& entry) {
       if(entry.website != "NULL") {
          std::cout << "Website: " << entry.website << "\nPassword: " << entry.password << "\n\n";
       }
