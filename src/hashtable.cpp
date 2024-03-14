@@ -21,7 +21,7 @@ HashTable::HashTable(const std::size_t size)
    m_numberBuckets = 0;
    m_vectorSize = size;
 
-   std::fill(m_table.begin(), m_table.end(), std::make_pair("NULL", "NULL"));
+   std::fill(m_table.begin(), m_table.end(), login());
 }
 
 void HashTable::resize(const std::size_t size)
@@ -52,12 +52,12 @@ std::size_t HashTable::hashFunction(const std::string& key) const
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
 
-   if(m_table[hashValue & (m_vectorSize - 1)].first != "NULL") {
+   if(m_table[hashValue & (m_vectorSize - 1)].website != "NULL") {
       for(std::size_t i = 0; i < m_vectorSize; ++i) {
-         if(m_table[i].first == "NULL") {
+         if(m_table[i].website == "NULL") {
             hashValue ^= i * (PRIME_2 >> 3);
          }
-         if(m_table[hashValue & (m_vectorSize - 1)].first == "NULL") {
+         if(m_table[hashValue & (m_vectorSize - 1)].website == "NULL") {
             break;
          }
       }
@@ -69,8 +69,8 @@ std::size_t HashTable::hashFunction(const std::string& key) const
 void HashTable::insertNode(const std::string& key, const std::string& value)
 {
    std::size_t hashValue = hashFunction(key);
-   m_table[hashValue].first = key;
-   m_table[hashValue].second = value;
+   m_table[hashValue].website = key;
+   m_table[hashValue].password = value;
    m_numberBuckets++;
 
    std::cout << "The password was added!\n";
@@ -79,8 +79,8 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
 void HashTable::removeNode(const std::string& key)
 {
    std::size_t hashValue = hashFunction(key);
-   m_table[hashValue].first = "NULL";
-   m_table[hashValue].second = "NULL";
+   m_table[hashValue].website = "NULL";
+   m_table[hashValue].password = "NULL";
    
    std::cout << "The password was removed!\n";
 }
@@ -88,18 +88,19 @@ void HashTable::removeNode(const std::string& key)
 std::string HashTable::searchTable(const std::string& key) const noexcept
 {
    std::size_t hashValue = hashFunction(key);
-   if(m_table[hashValue].second == "NULL") {
+   if(m_table[hashValue].password == "NULL") {
       return "Unable to find given password!\n";
    }
 
-   return m_table[hashValue].second;
+   return m_table[hashValue].password;
 }
 
 void HashTable::printTable() const noexcept
 {
-   auto printWebsite = [](const std::pair<std::string, std::string>& website) {
-      if(website.first != "NULL") {
-         std::cout << "Website: " << website.first << "\nPassword: " << website.second << "\n\n";
+   //This is the first lambda function I have ever implemented
+   auto printWebsite = [](const login entry) {
+      if(entry.website != "NULL") {
+         std::cout << "Website: " << entry.website << "\nPassword: " << entry.password << "\n\n";
       }
    };
 

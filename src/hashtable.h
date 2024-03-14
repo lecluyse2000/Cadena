@@ -10,23 +10,31 @@
 #include <utility>
 #include <string>
 
+struct login
+{
+   std::string website;
+   std::string password;
+
+   login() : website("NULL"), password("NULL"){}
+};
+
 class HashTable
 {
-    private:
-       int m_numberBuckets;
-       std::size_t m_vectorSize;
-       std::vector<std::pair<std::string, std::string>> m_table; 
+   private:
+      int m_numberBuckets;
+      std::size_t m_vectorSize;
+      std::vector<login> m_table; 
         
-    public:
-       HashTable(const std::size_t size);
-       void resize(const std::size_t size);
-       bool isEmpty() const noexcept;
-       int getSize() const noexcept;
-       std::size_t hashFunction(const std::string& key) const;
-       void insertNode(const std::string& key, const std::string& value);
-       void removeNode(const std::string& key);
-       std::string searchTable(const std::string& key) const noexcept;
-       void printTable() const noexcept;
+   public: 
+      HashTable(const std::size_t size);
+      void resize(const std::size_t size);
+      bool isEmpty() const noexcept;
+      int getSize() const noexcept;
+      std::size_t hashFunction(const std::string& key) const;
+      void insertNode(const std::string& key, const std::string& value);
+      void removeNode(const std::string& key);
+      std::string searchTable(const std::string& key) const noexcept;
+      void printTable() const noexcept;
 };
 
 #endif
