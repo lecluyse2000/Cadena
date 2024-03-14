@@ -19,6 +19,7 @@ HashTable::HashTable(const std::size_t size)
    m_table.resize(size);
    m_numberBuckets = 0;
    m_vectorSize = size;
+
    for(auto& i : m_table) {
       i = std::make_pair("NULL", "NULL");
    }
@@ -73,6 +74,7 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
    m_table[hashValue].first = key;
    m_table[hashValue].second = value;
    m_numberBuckets++;
+
    std::cout << "The password was added!\n";
 }
 
@@ -81,6 +83,7 @@ void HashTable::removeNode(const std::string& key)
    std::size_t hashValue = hashFunction(key);
    m_table[hashValue].first = "NULL";
    m_table[hashValue].second = "NULL";
+   
    std::cout << "The password was removed!\n";
 }
 
