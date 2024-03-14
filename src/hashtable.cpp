@@ -36,6 +36,7 @@ bool HashTable::isEmpty() const noexcept
    {
       return true;
    }
+
    return false;
 }
 
@@ -47,6 +48,7 @@ int HashTable::getSize() const noexcept
 std::size_t HashTable::hashFunction(const std::string& key) const
 {
    size_t hashValue = 76963;
+
    for(const auto& character : key) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
@@ -61,6 +63,7 @@ std::size_t HashTable::hashFunction(const std::string& key) const
          }
       }
    }
+
    return hashValue & (m_vectorSize - 1);
 }
 
@@ -87,6 +90,7 @@ std::string HashTable::searchTable(const std::string& key) const noexcept
    if(m_table[hashValue].second == "NULL") {
       return "Unable to find given password!\n";
    }
+
    return m_table[hashValue].second;
 }
 

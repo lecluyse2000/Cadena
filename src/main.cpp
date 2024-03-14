@@ -28,6 +28,7 @@ int recieveUserInput()
    } 
 
    std::cout << std::endl;
+
    return std::stoi(userInput);
 }
 
@@ -167,5 +168,6 @@ int main()
             break;
       }
    }
+
    return 0;
 }
