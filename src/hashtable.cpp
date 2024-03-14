@@ -14,7 +14,7 @@
 #define PRIME_2 86969
 
 
-HashTable::HashTable(std::size_t size)
+HashTable::HashTable(const std::size_t size)
 {
    m_table.resize(size);
    m_numberBuckets = 0;

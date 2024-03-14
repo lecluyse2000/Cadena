@@ -18,8 +18,8 @@ class HashTable
        std::vector<std::pair<std::string, std::string>> m_table; 
         
     public:
-       HashTable(std::size_t size);
-       void resize(std::size_t size);
+       HashTable(const std::size_t size);
+       void resize(const std::size_t size);
        bool isEmpty() const noexcept;
        int getSize() const noexcept;
        std::size_t hashFunction(const std::string& key) const;
