@@ -52,16 +52,16 @@ std::size_t HashTable::hashFunction(const std::string& key) const
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
 
-   if(m_table[hashValue & (m_vectorSize - 1)].website != "NULL") {
-      for(std::size_t i = 0; i < m_vectorSize; ++i) {
-         if(m_table[i].website == "NULL") {
-            hashValue ^= i * (PRIME_2 >> 3);
-         }
-         if(m_table[hashValue & (m_vectorSize - 1)].website == "NULL") {
-            break;
-         }
-      }
-   }
+   //if(m_table[hashValue & (m_vectorSize - 1)].website != "NULL") {
+     // for(std::size_t i = 0; i < m_vectorSize; ++i) {
+      //   if(m_table[i].website == "NULL") {
+       //     hashValue ^= i * (PRIME_2 >> 3);
+        // }
+         //if(m_table[hashValue & (m_vectorSize - 1)].website == "NULL") {
+          //  break;
+         //}
+      //}
+   //}
 
    return hashValue & (m_vectorSize - 1);
 }

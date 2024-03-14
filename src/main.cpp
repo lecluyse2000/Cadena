@@ -16,14 +16,19 @@ void printMenu()
              << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
 }
 
-int recieveUserInput() 
+void clearInputStream()
+{
+   std::cin.clear();
+   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+int recieveUserInputMenu() 
 {
    std::string userInput = "";
    printMenu();
 
    while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      clearInputStream();
       std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
    } 
 
@@ -140,7 +145,7 @@ int main()
 
    while(keepGoing) {
       userInput = "";
-      switch(recieveUserInput()) {
+      switch(recieveUserInputMenu()) {
          case 1:
             passwordManager.printTable();
             break;
