@@ -15,7 +15,10 @@ struct login
    std::string website;
    std::string password;
 
-   login() : website("NULL"), password("NULL"){}
+   login(const std::string& webpage, const std::string& passphrase) {
+      website = webpage;
+      password = passphrase;
+   }
 };
 
 class HashTable
@@ -23,7 +26,7 @@ class HashTable
    private:
       int m_numberBuckets;
       std::size_t m_vectorSize;
-      std::vector<login> m_table; 
+      std::vector<std::vector<login>> m_table; 
         
    public: 
       HashTable(const std::size_t size);
