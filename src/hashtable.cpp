@@ -57,7 +57,7 @@ std::size_t HashTable::hashFunction(const std::string& key) const
 
 void HashTable::insertNode(const std::string& key, const std::string& value)
 {
-   std::size_t hashValue = hashFunction(key);
+   const std::size_t hashValue = hashFunction(key);
    m_numberBuckets++;
 
    m_table[hashValue].emplace_back(key, value);
@@ -66,7 +66,7 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
 
 void HashTable::removeNode(const std::string& key)
 {
-   std::size_t hashValue = hashFunction(key);
+   const std::size_t hashValue = hashFunction(key);
    bool entryFound = false;
 
    for(std::size_t i = 0; i < m_table[hashValue].size(); ++i) {
@@ -85,7 +85,7 @@ void HashTable::removeNode(const std::string& key)
 
 std::string HashTable::searchTable(const std::string& key) const noexcept
 {
-   std::size_t hashValue = hashFunction(key);
+   const std::size_t hashValue = hashFunction(key);
    for(const auto& i : m_table[hashValue]) {
       if(i.website == key) {
          return i.password;
@@ -106,4 +106,15 @@ void HashTable::printTable() const noexcept
    };
 
    std::for_each(m_table.begin(), m_table.end(), printWebsiteVector);
+}
+
+void HashTable::changePassword(const std::string& key, const std::string& newPassword)
+{
+   const std::size_t hashValue = hashFunction(key);
+
+   for(auto& entry : m_table[hashValue]) {
+      if(entry.website == key) {
+         entry.password = newPassword;
+      }
+   }
 }

@@ -38,6 +38,7 @@ class HashTable
       void removeNode(const std::string& key);
       std::string searchTable(const std::string& key) const noexcept;
       void printTable() const noexcept;
+      void changePassword(const std::string& key, const std::string& newPassword);
 };
 
 #endif
