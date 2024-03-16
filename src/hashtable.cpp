@@ -111,10 +111,18 @@ void HashTable::printTable() const noexcept
 void HashTable::changePassword(const std::string& key, const std::string& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
+   bool passwordChanged = false;
 
    for(auto& entry : m_table[hashValue]) {
       if(entry.website == key) {
          entry.password = newPassword;
+         passwordChanged = true;
       }
+   }
+
+   if(passwordChanged) {
+      std::cout << "Password successfully changed!\n";
+   } else {
+      std::cout << "Could not find given website!\n";
    }
 }

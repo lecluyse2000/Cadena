@@ -51,6 +51,7 @@ int main()
    HashTable passwordManager(256);
    bool keepGoing = true;
    std::string userInput = "";
+   std::string userInput2 = "";
    std::cout << "Welcome to Caden's Password Manager!\n";
    const std::vector<const std::string> top_websites = {
         "google.com",
@@ -151,21 +152,59 @@ int main()
             break;
          case 2:
             std::cout << "What is the website of the password you want to get? ";
-            std::cin >> userInput;
+
+            if(!(std::cin >> userInput)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
+
             std::cout << "Password of " << userInput << ": " << passwordManager.searchTable(userInput) << std::endl;
+            clearInputStream();
             break;
          case 3:
             std::cout << "What is the name of the website you want to add? ";
+            
+            if(!(std::cin >> userInput)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
+
+            clearInputStream();
+            std::cout << "\nWhat is the password you would like to add: ";
+            
+            if(!(std::cin >> userInput2)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
+
+            clearInputStream();
+            passwordManager.insertNode(userInput, userInput2);
             break;
          case 4:
             for(const auto& i : top_websites) {
                std::cout << "Hashvalue for " << i << " is: " << passwordManager.hashFunction(i) << '\n'; 
                passwordManager.insertNode(i, "blablabla");
             }
-
+            
             break;
          case 5:
+            std::cout << "What is the name of the website you want to change? ";
+            
+            if(!(std::cin >> userInput)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
+            
+            clearInputStream();
+            std::cout << "\nWhat is the password you would like to add: ";
+            
+            if(!(std::cin >> userInput2)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
 
+            clearInputStream();
+            passwordManager.changePassword(userInput, userInput2);
             break;
          case 6:
             keepGoing = false;
