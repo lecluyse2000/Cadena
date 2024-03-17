@@ -33,10 +33,10 @@ class HashTable
       void resize(const std::size_t size);
       bool isEmpty() const noexcept;
       int getSize() const noexcept;
-      std::size_t hashFunction(const std::string& key) const;
+      const std::size_t hashFunction(const std::string& key) const;
       void insertNode(const std::string& key, const std::string& value);
       void removeNode(const std::string& key);
-      std::string searchTable(const std::string& key) const noexcept;
+      const std::string searchTable(const std::string& key) const noexcept;
       void printTable() const noexcept;
       void changePassword(const std::string& key, const std::string& newPassword);
 };

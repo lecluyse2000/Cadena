@@ -42,7 +42,7 @@ int HashTable::getSize() const noexcept
    return(m_numberBuckets);
 }
 
-std::size_t HashTable::hashFunction(const std::string& key) const
+const std::size_t HashTable::hashFunction(const std::string& key) const
 {
    size_t hashValue = 76963;
 
@@ -78,13 +78,13 @@ void HashTable::removeNode(const std::string& key)
    std::cout << "The password was not found!\n";
 }
 
-std::string HashTable::searchTable(const std::string& key) const noexcept
+const std::string HashTable::searchTable(const std::string& key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
 
-   for(const auto& i : m_table[hashValue]) {
-      if(i.website == key) {
-         return i.password;
+   for(const auto& entry : m_table[hashValue]) {
+      if(entry.website == key) {
+         return entry.password;
       }
    }   
 
