@@ -48,7 +48,7 @@ int main()
       std::cout << "Libsodium initialized successfully!\n\n";
    }
    
-   HashTable passwordManager(256);
+   HashTable passwordManager;
    bool keepGoing = true;
    std::string userInput = "";
    std::string userInput2 = "";

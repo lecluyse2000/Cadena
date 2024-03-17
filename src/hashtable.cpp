@@ -15,7 +15,7 @@
 #define PRIME_2 86969
 
 
-HashTable::HashTable()
+HashTable::HashTable() : m_table(256)
 {
    m_numberBuckets = 0;
    m_vectorSize = 256;
