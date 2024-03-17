@@ -53,7 +53,7 @@ int main()
    std::string userInput = "";
    std::string userInput2 = "";
    std::cout << "Welcome to Caden's Password Manager!\n";
-   const std::vector<const std::string> top_websites = {
+   const std::vector<std::string> top_websites = {
         "google.com",
         "youtube.com",
         "facebook.com",

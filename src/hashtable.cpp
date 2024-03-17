@@ -68,7 +68,6 @@ void HashTable::removeNode(const std::string& key)
 
    for(std::size_t i = 0; i < m_table[hashValue].size(); ++i) {
       if(m_table[hashValue][i].website == key) {
-         entryFound = true;
          m_table[hashValue].erase(m_table[hashValue].begin() + i);
          std::cout << "The password was removed!\n";
          return;
@@ -111,7 +110,6 @@ void HashTable::changePassword(const std::string& key, const std::string& newPas
    for(auto& entry : m_table[hashValue]) {
       if(entry.website == key) {
          entry.password = newPassword;
-         passwordChanged = true;
          std::cout << "Password successfully changed!\n";
          return;
       }
