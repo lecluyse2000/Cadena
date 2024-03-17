@@ -26,7 +26,7 @@ class HashTable
    private:
       int m_numberBuckets;
       std::size_t m_vectorSize;
-      std::vector<std::vector<login>> m_table; 
+      std::vector<std::vector<login>> m_table(256);
         
    public: 
       HashTable(const std::size_t size);
