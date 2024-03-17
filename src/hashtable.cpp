@@ -30,8 +30,7 @@ void HashTable::resize(const std::size_t size)
 
 bool HashTable::isEmpty() const noexcept 
 {
-   if(m_numberBuckets == 0)
-   {
+   if(m_numberBuckets == 0) {
       return true;
    }
 
@@ -51,7 +50,6 @@ std::size_t HashTable::hashFunction(const std::string& key) const
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    }
 
-
    return hashValue & (m_vectorSize - 1);
 }
 
@@ -67,25 +65,23 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
 void HashTable::removeNode(const std::string& key)
 {
    const std::size_t hashValue = hashFunction(key);
-   bool entryFound = false;
 
    for(std::size_t i = 0; i < m_table[hashValue].size(); ++i) {
       if(m_table[hashValue][i].website == key) {
          entryFound = true;
          m_table[hashValue].erase(m_table[hashValue].begin() + i);
+         std::cout << "The password was removed!\n";
+         return;
       }
    }
 
-   if(entryFound) {
-      std::cout << "The password was removed!\n";
-   } else {
-      std::cout << "The password was not found!\n";
-   }
+   std::cout << "The password was not found!\n";
 }
 
 std::string HashTable::searchTable(const std::string& key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
+
    for(const auto& i : m_table[hashValue]) {
       if(i.website == key) {
          return i.password;
@@ -111,18 +107,15 @@ void HashTable::printTable() const noexcept
 void HashTable::changePassword(const std::string& key, const std::string& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
-   bool passwordChanged = false;
 
    for(auto& entry : m_table[hashValue]) {
       if(entry.website == key) {
          entry.password = newPassword;
          passwordChanged = true;
+         std::cout << "Password successfully changed!\n";
+         return;
       }
    }
 
-   if(passwordChanged) {
-      std::cout << "Password successfully changed!\n";
-   } else {
-      std::cout << "Could not find given website!\n";
-   }
+   std::cout << "Could not find given website!\n";
 }
