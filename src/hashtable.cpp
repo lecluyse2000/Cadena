@@ -7,6 +7,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <string_view>
 #include <iostream>
 #include "hashtable.h"
 #include <algorithm>
@@ -40,7 +41,7 @@ int HashTable::getSize() const noexcept
    return(m_numberBuckets);
 }
 
-const std::size_t HashTable::hashFunction(const std::string& key) const
+const std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
 
@@ -60,7 +61,7 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
    std::cout << "The password was added!\n";
 }
 
-void HashTable::removeNode(const std::string& key)
+void HashTable::removeNode(const std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
 
@@ -75,7 +76,7 @@ void HashTable::removeNode(const std::string& key)
    std::cout << "The password was not found!\n";
 }
 
-const std::string HashTable::searchTable(const std::string& key) const noexcept
+const std::string HashTable::searchTable(const std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
 
@@ -101,7 +102,7 @@ void HashTable::printTable() const noexcept
    std::for_each(m_table.begin(), m_table.end(), printWebsiteVector);
 }
 
-void HashTable::changePassword(const std::string& key, const std::string& newPassword)
+void HashTable::changePassword(const std::string_view key, const std::string& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
 

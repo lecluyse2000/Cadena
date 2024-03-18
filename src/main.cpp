@@ -8,6 +8,7 @@
 #include "hashtable.h"
 #include <sodium.h>
 #include <stdexcept>
+#include <string>
 
 
 void printMenu()

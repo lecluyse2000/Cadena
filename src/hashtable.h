@@ -9,16 +9,15 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <string_view>
 
 struct login
 {
    std::string website;
    std::string password;
 
-   login(const std::string& webpage, const std::string& passphrase) {
-      website = webpage;
-      password = passphrase;
-   }
+   login(const std::string& webpage, const std::string& passphrase)
+      : website(webpage), password(passphrase) {}
 };
 
 class HashTable
@@ -33,12 +32,12 @@ class HashTable
       void resize(const std::size_t size);
       bool isEmpty() const noexcept;
       int getSize() const noexcept;
-      const std::size_t hashFunction(const std::string& key) const;
+      const std::size_t hashFunction(const std::string_view key) const noexcept;
       void insertNode(const std::string& key, const std::string& value);
-      void removeNode(const std::string& key);
-      const std::string searchTable(const std::string& key) const noexcept;
+      void removeNode(const std::string_view key);
+      const std::string searchTable(const std::string_view key) const noexcept;
       void printTable() const noexcept;
-      void changePassword(const std::string& key, const std::string& newPassword);
+      void changePassword(const std::string_view key, const std::string& newPassword);
 };
 
 #endif
