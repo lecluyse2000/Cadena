@@ -15,11 +15,16 @@
 #define PRIME_1 57649
 #define PRIME_2 86969
 
-
 HashTable::HashTable() : m_table(256)
 {
-   m_numberBuckets = 0;
    m_vectorSize = 256;
+}
+
+HashTable::~HashTable()
+{
+   for(auto& vec : m_table) {
+       vec.clear();
+   }
 }
 
 void HashTable::resize(const std::size_t size)
@@ -29,25 +34,15 @@ void HashTable::resize(const std::size_t size)
 
 bool HashTable::isEmpty() const noexcept 
 {
-   if(m_numberBuckets == 0) {
-      return true;
-   }
-
-   return false;
-}
-
-int HashTable::getSize() const noexcept
-{
-   return(m_numberBuckets);
+   return m_table.empty();
 }
 
 const std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
-
-   for(const auto& character : key) {
+   std::for_each(key.begin(), key.end(), [&](const char character) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
-   }
+   });
 
    return hashValue & (m_vectorSize - 1);
 }
@@ -55,7 +50,6 @@ const std::size_t HashTable::hashFunction(const std::string_view key) const noex
 void HashTable::insertNode(const std::string& key, const std::string& value)
 {
    const std::size_t hashValue = hashFunction(key);
-   m_numberBuckets++;
 
    m_table[hashValue].emplace_back(key, value);
    std::cout << "The password was added!\n";
@@ -79,27 +73,25 @@ void HashTable::removeNode(const std::string_view key)
 const std::string HashTable::searchTable(const std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
+   auto itr = std::find_if(m_table[hashValue].begin(), m_table[hashValue].end(), [&](const login& entry) {
+      return entry.website == key;   
+   });
 
-   for(const auto& entry : m_table[hashValue]) {
-      if(entry.website == key) {
-         return entry.password;
-      }
-   }   
-
+   if(itr != m_table[hashValue].end()) {
+      return (*itr).website;
+   }
    return("The login could not be found!\n");
 }
 
 void HashTable::printTable() const noexcept
 {
    //This is the first lambda function I have ever implemented
-   auto printWebsiteVector = [](const std::vector<login>& entry ) {
+   std::for_each(m_table.begin(), m_table.end(), [](const std::vector<login>& entry) {
       for(const auto& theLogin : entry) {
          std::cout << "Website: " << theLogin.website << "\nPassword: " 
-                   << theLogin.password << "\n\n";
+                   << theLogin.password  << std::endl;
       }
-   };
-
-   std::for_each(m_table.begin(), m_table.end(), printWebsiteVector);
+   });
 }
 
 void HashTable::changePassword(const std::string_view key, const std::string& newPassword)

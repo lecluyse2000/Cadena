@@ -183,7 +183,6 @@ int main()
             break;
          case 4:
             for(const auto& i : top_websites) {
-               std::cout << "Hashvalue for " << i << " is: " << passwordManager.hashFunction(i) << '\n'; 
                passwordManager.insertNode(i, "blablabla");
             }
             
