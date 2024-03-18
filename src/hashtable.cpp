@@ -65,9 +65,9 @@ void HashTable::removeNode(const std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
 
-   for(std::size_t i = 0; i < m_table[hashValue].size(); ++i) {
-      if(m_table[hashValue][i].website == key) {
-         m_table[hashValue].erase(m_table[hashValue].begin() + i);
+   for(auto itr = m_table[hashValue].begin(); itr != m_table[hashValue].end(); ++itr) {
+      if(itr->website == key) {
+         m_table[hashValue].erase(itr);
          std::cout << "The password was removed!\n";
          return;
       }
