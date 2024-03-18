@@ -40,7 +40,7 @@ bool HashTable::isEmpty() const noexcept
 const std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
-   std::for_each(key.begin(), key.end(), [&](const char character) {
+   std::for_each(key.begin(), key.end(), [&hashValue](const char character) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    });
 
@@ -50,7 +50,6 @@ const std::size_t HashTable::hashFunction(const std::string_view key) const noex
 void HashTable::insertNode(const std::string& key, const std::string& value)
 {
    const std::size_t hashValue = hashFunction(key);
-
    m_table[hashValue].emplace_back(key, value);
    std::cout << "The password was added!\n";
 }
@@ -73,7 +72,7 @@ void HashTable::removeNode(const std::string_view key)
 const std::string HashTable::searchTable(const std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
-   auto itr = std::find_if(m_table[hashValue].begin(), m_table[hashValue].end(), [&](const login& entry) {
+   const auto itr = std::find_if(m_table[hashValue].begin(), m_table[hashValue].end(), [&key](const login& entry) {
       return entry.website == key;   
    });
 
