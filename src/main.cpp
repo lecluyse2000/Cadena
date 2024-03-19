@@ -54,6 +54,7 @@ int main()
    bool keepGoing = true;
    std::string userInput = "";
    std::string userInput2 = "";
+   std::string userInput3 = "";
    std::cout << "Welcome to Caden's Password Manager!\n";
    const std::vector<std::string> top_websites = {
         "google.com",
@@ -153,14 +154,17 @@ int main()
             passwordManager.printTable();
             break;
          case 2:
-            std::cout << "What is the website of the password you want to get? ";
+            std::cout << "What is the website of the login you want to get? ";
 
             if(!(std::cin >> userInput)) {
                std::cerr << "Failed to recieve user input, aborting program!\n";
                return 1;
             }
+            const login returnedLogin = passwordManager.searchTable(userInput);
+            std::cout << "Website: " << userInput << "\nUsername:  " 
+                      << returnedLogin.username << "\nPassword: " << returnedLogin.password
+                      << '\n' << std::endl;
 
-            std::cout << "Password of " << userInput << ": " << passwordManager.searchTable(userInput) << std::endl;
             clearInputStream();
             break;
          case 3:
@@ -172,7 +176,7 @@ int main()
             }
 
             clearInputStream();
-            std::cout << "\nWhat is the password you would like to add: ";
+            std::cout << "\nWhat is the username you would like to add? ";
             
             if(!(std::cin >> userInput2)) {
                std::cerr << "Failed to recieve user input, aborting program!\n";
@@ -180,11 +184,17 @@ int main()
             }
 
             clearInputStream();
-            passwordManager.insertNode(userInput, userInput2);
+            std::cout << "What is the password you would like to add? ";
+            if(!(std::cin >> userInput3)) {
+               std::cerr << "Failed to recieve user input, aborting program!\n";
+               return 1;
+            }
+
+            passwordManager.insertNode(userInput, userInput2, userInput3);
             break;
          case 4:
             for(const auto& i : top_websites) {
-               passwordManager.insertNode(i, "blablabla");
+               passwordManager.insertNode(i, "blablabla", "blablablabla");
             }
             
             break;

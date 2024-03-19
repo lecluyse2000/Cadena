@@ -30,12 +30,12 @@ void HashTable::resize(const std::size_t size)
    m_table.resize(size);
 }
 
-bool HashTable::isEmpty() const noexcept 
+constexpr bool HashTable::isEmpty() const noexcept 
 {
    return m_table.empty();
 }
 
-std::size_t HashTable::hashFunction(std::string_view key) const noexcept
+constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
    std::ranges::for_each(key, [&hashValue](const char character) {
@@ -45,17 +45,16 @@ std::size_t HashTable::hashFunction(std::string_view key) const noexcept
    return hashValue & (m_vectorSize - 1);
 }
 
-void HashTable::insertNode(const std::string& key, const std::string& value)
+void HashTable::insertNode(const std::string& key, const std::string& username, const std::string& value)
 {
    const std::size_t hashValue = hashFunction(key);
-   m_table[hashValue].emplace_back(key, value);
+   m_table[hashValue].emplace_back(key, username, value);
    std::cout << "The password was added!\n";
 }
 
 void HashTable::removeNode(std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
-
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
          return entry.website == key;
    });
@@ -68,7 +67,7 @@ void HashTable::removeNode(std::string_view key)
    }
 }
 
-std::string HashTable::searchTable(std::string_view key) const noexcept
+login HashTable::searchTable(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
@@ -76,9 +75,9 @@ std::string HashTable::searchTable(std::string_view key) const noexcept
    });
 
    if(itr != m_table[hashValue].end()) {
-      return itr->password;
+      return *itr
    }
-   return("The login could not be found!\n");
+   std::cout << "The login could not be found!\n";
 }
 
 void HashTable::printTable() const noexcept
@@ -86,8 +85,9 @@ void HashTable::printTable() const noexcept
    //This is the first lambda function I have ever implemented
    std::ranges::for_each(m_table, [](const std::vector<login>& entry) {
       std::ranges::for_each(entry, [](const login& t_login) {
-         std::cout << "Website: " << t_login.website << "\nPassword: " 
-                   << t_login.password  << std::endl;
+         std::cout << "Website: " << t_login.website << "\nUsername: " 
+                   << t_login.username  << "\nPassword: " << t_login.password << '\n' 
+                   << std::endl;
       });
    });
 }
@@ -95,7 +95,6 @@ void HashTable::printTable() const noexcept
 void HashTable::changePassword(std::string_view key, const std::string& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
-
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
       return entry.website == key;
    });
