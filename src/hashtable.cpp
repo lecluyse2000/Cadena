@@ -20,9 +20,9 @@ HashTable::HashTable() : m_table(256) {}
 
 HashTable::~HashTable()
 {
-   for(auto& vec : m_table) {
-       vec.clear();
-   }
+   std::ranges::for_each(m_table, [](std::vector<login>& entry) {
+      entry.clear();
+   }); 
 }
 
 void HashTable::resize(const std::size_t size)
