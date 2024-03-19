@@ -37,7 +37,7 @@ bool HashTable::isEmpty() const noexcept
    return m_table.empty();
 }
 
-const std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
+std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
    std::for_each(key.begin(), key.end(), [&hashValue](const char character) {
@@ -69,7 +69,7 @@ void HashTable::removeNode(const std::string_view key)
    std::cout << "The password was not found!\n";
 }
 
-const std::string HashTable::searchTable(const std::string_view key) const noexcept
+std::string HashTable::searchTable(const std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::find_if(m_table[hashValue].begin(), m_table[hashValue].end(), [&key](const login& entry) {
