@@ -30,15 +30,15 @@ class HashTable
       void resize(const std::size_t size);
       bool isEmpty() const noexcept;
       void insertNode(const std::string& key, const std::string& value);
-      void removeNode(const std::string_view key);
-      std::string searchTable(const std::string_view key) const noexcept;
+      void removeNode(std::string_view key);
+      std::string searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
-      void changePassword(const std::string_view key, const std::string& newPassword);
+      void changePassword(std::string_view key, const std::string& newPassword);
    
    private:
       std::size_t m_vectorSize{ 256 };
       std::vector<std::vector<login>> m_table;
-      std::size_t hashFunction(const std::string_view key) const noexcept;
+      std::size_t hashFunction(std::string_view key) const noexcept;
 };
 
 #endif

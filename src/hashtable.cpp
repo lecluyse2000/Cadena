@@ -35,7 +35,7 @@ bool HashTable::isEmpty() const noexcept
    return m_table.empty();
 }
 
-std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
+std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
    std::ranges::for_each(key, [&hashValue](const char character) {
@@ -52,7 +52,7 @@ void HashTable::insertNode(const std::string& key, const std::string& value)
    std::cout << "The password was added!\n";
 }
 
-void HashTable::removeNode(const std::string_view key)
+void HashTable::removeNode(std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
 
@@ -68,7 +68,7 @@ void HashTable::removeNode(const std::string_view key)
    }
 }
 
-std::string HashTable::searchTable(const std::string_view key) const noexcept
+std::string HashTable::searchTable(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
@@ -92,7 +92,7 @@ void HashTable::printTable() const noexcept
    });
 }
 
-void HashTable::changePassword(const std::string_view key, const std::string& newPassword)
+void HashTable::changePassword(std::string_view key, const std::string& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
 
