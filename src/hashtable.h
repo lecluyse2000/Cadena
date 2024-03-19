@@ -14,10 +14,12 @@
 struct login
 {
    std::string website;
+   std::string userName;
    std::string password;
 
-   login(const std::string& webpage, const std::string& passphrase)
-      : website(webpage), password(passphrase) {}
+   login(const std::string& webpage, 
+         const std::string& passphrase)
+      : website(webpage),  password(passphrase) {}
 };
 
 class HashTable
@@ -34,7 +36,7 @@ class HashTable
       void changePassword(const std::string_view key, const std::string& newPassword);
    
    private:
-      std::size_t m_vectorSize;
+      std::size_t m_vectorSize{ 256 };
       std::vector<std::vector<login>> m_table;
       std::size_t hashFunction(const std::string_view key) const noexcept;
 };

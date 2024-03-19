@@ -4,6 +4,7 @@
 //Purpose: Implement a password manager in c++ using a hash table, so I can better understand the data structure
 
 
+#include <ranges>
 #include <vector>
 #include <utility>
 #include <string>
@@ -15,10 +16,7 @@
 #define PRIME_1 57649
 #define PRIME_2 86969
 
-HashTable::HashTable() : m_table(256)
-{
-   m_vectorSize = 256;
-}
+HashTable::HashTable() : m_table(256) {}
 
 HashTable::~HashTable()
 {
@@ -40,7 +38,7 @@ bool HashTable::isEmpty() const noexcept
 std::size_t HashTable::hashFunction(const std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
-   std::for_each(key.begin(), key.end(), [&hashValue](const char character) {
+   std::ranges::for_each(key, [&hashValue](const char character) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    });
 
@@ -58,26 +56,27 @@ void HashTable::removeNode(const std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
 
-   for(auto itr = m_table[hashValue].begin(); itr != m_table[hashValue].end(); ++itr) {
-      if(itr->website == key) {
-         m_table[hashValue].erase(itr);
-         std::cout << "The password was removed!\n";
-         return;
-      }
-   }
+   const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
+         return entry.website == key;
+   });
 
-   std::cout << "The password was not found!\n";
+   if(itr != m_table[hashValue].end()) {
+      m_table[hashValue].erase(itr);
+      std::cout << "The given login was removed!\n";
+   } else {
+      std::cout << "Could not find the login!\n";
+   }
 }
 
 std::string HashTable::searchTable(const std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
-   const auto itr = std::find_if(m_table[hashValue].begin(), m_table[hashValue].end(), [&key](const login& entry) {
+   const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
       return entry.website == key;   
    });
 
    if(itr != m_table[hashValue].end()) {
-      return (*itr).website;
+      return itr->password;
    }
    return("The login could not be found!\n");
 }
@@ -85,11 +84,11 @@ std::string HashTable::searchTable(const std::string_view key) const noexcept
 void HashTable::printTable() const noexcept
 {
    //This is the first lambda function I have ever implemented
-   std::for_each(m_table.begin(), m_table.end(), [](const std::vector<login>& entry) {
-      for(const auto& theLogin : entry) {
-         std::cout << "Website: " << theLogin.website << "\nPassword: " 
-                   << theLogin.password  << std::endl;
-      }
+   std::ranges::for_each(m_table, [](const std::vector<login>& entry) {
+      std::ranges::for_each(entry, [](const login& t_login) {
+         std::cout << "Website: " << t_login.website << "\nPassword: " 
+                   << t_login.password  << std::endl;
+      });
    });
 }
 
@@ -97,13 +96,14 @@ void HashTable::changePassword(const std::string_view key, const std::string& ne
 {
    const std::size_t hashValue = hashFunction(key);
 
-   for(auto& entry : m_table[hashValue]) {
-      if(entry.website == key) {
-         entry.password = newPassword;
-         std::cout << "Password successfully changed!\n";
-         return;
-      }
-   }
+   const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
+      return entry.website == key;
+   });
 
-   std::cout << "Could not find given website!\n";
+   if(itr != m_table[hashValue].end()) {
+      itr->password = newPassword;
+      std::cout << "The password was changed!\n";
+   } else {
+      std::cout << "The password was unable to be found!\n";
+   }
 }

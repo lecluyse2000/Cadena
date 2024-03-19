@@ -28,7 +28,8 @@ int recieveUserInputMenu()
    std::string userInput = "";
    printMenu();
 
-   while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
+   while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) 
+         || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
       clearInputStream();
       std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
    } 
