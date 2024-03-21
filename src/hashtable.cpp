@@ -35,7 +35,7 @@ constexpr bool HashTable::isEmpty() const noexcept
    return m_table.empty();
 }
 
-constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
+[[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
    size_t hashValue = 76963;
    std::ranges::for_each(key, [&hashValue](const char character) {
@@ -67,7 +67,7 @@ void HashTable::removeNode(std::string_view key)
    }
 }
 
-login HashTable::searchTable(std::string_view key) const noexcept
+[[nodiscard]] login HashTable::searchTable(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
@@ -75,9 +75,9 @@ login HashTable::searchTable(std::string_view key) const noexcept
    });
 
    if(itr != m_table[hashValue].end()) {
-      return *itr
+      return *itr;
    }
-   std::cout << "The login could not be found!\n";
+   return{"Login could not be found", "NULL", "NULL"};
 }
 
 void HashTable::printTable() const noexcept

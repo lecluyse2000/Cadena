@@ -160,10 +160,13 @@ int main()
                std::cerr << "Failed to recieve user input, aborting program!\n";
                return 1;
             }
+
+            {
             const login returnedLogin = passwordManager.searchTable(userInput);
             std::cout << "Website: " << userInput << "\nUsername:  " 
                       << returnedLogin.username << "\nPassword: " << returnedLogin.password
                       << '\n' << std::endl;
+            }
 
             clearInputStream();
             break;
