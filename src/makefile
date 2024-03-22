@@ -1,5 +1,5 @@
 PasswordManager: main.o hashtable.o
-	g++ -std=c++20 -g -Wall main.o hashtable.o -o PasswordManager -lsodium
+	g++ -std=c++20 -g -Wall main.o hashtable.o -o PasswordManager 
 
 main.o: main.cpp
 	g++ -std=c++20 -g -Wall -c main.cpp

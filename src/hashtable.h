@@ -28,7 +28,7 @@ class HashTable
       HashTable();
       ~HashTable();
       void resize(const std::size_t size);
-      constexpr bool isEmpty() const noexcept;
+      bool isEmpty() const noexcept;
       void insertNode(const std::string& key, const std::string& username, const std::string& value);
       void removeNode(std::string_view key);
       [[nodiscard]] login searchTable(std::string_view key) const noexcept;

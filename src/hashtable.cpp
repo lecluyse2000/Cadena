@@ -30,7 +30,7 @@ void HashTable::resize(const std::size_t size)
    m_table.resize(size);
 }
 
-constexpr bool HashTable::isEmpty() const noexcept 
+bool HashTable::isEmpty() const noexcept 
 {
    return m_table.empty();
 }
@@ -77,7 +77,7 @@ void HashTable::removeNode(std::string_view key)
    if(itr != m_table[hashValue].end()) {
       return *itr;
    }
-   return{"Login could not be found", "NULL", "NULL"};
+   return{"NULL", "NULL", "NULL"};
 }
 
 void HashTable::printTable() const noexcept
