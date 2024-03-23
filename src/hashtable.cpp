@@ -48,7 +48,7 @@ bool HashTable::isEmpty() const noexcept
 void HashTable::insertNode(const std::string& key, const std::string& username, const std::string& value)
 {
    const std::size_t hashValue = hashFunction(key);
-   m_table[hashValue].emplace_back(key, username, value);
+   m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
    std::cout << "The password was added!\n";
 }
 
@@ -100,7 +100,7 @@ void HashTable::changePassword(std::string_view key, const std::string& newPassw
    });
 
    if(itr != m_table[hashValue].end()) {
-      itr->password = newPassword;
+      itr->password = std::move(newPassword);
       std::cout << "The password was changed!\n";
    } else {
       std::cout << "The password was unable to be found!\n";

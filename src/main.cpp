@@ -112,9 +112,6 @@ int main()
             passwordManager.insertNode(userInput, userInput2, userInput3);
             break;
          case 4:
-            for(const auto& i : top_websites) {
-               passwordManager.insertNode(i, "blablabla", "blablablabla");
-            }
             
             break;
          case 5:
