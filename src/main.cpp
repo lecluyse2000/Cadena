@@ -39,7 +39,58 @@ int recieveUserInputMenu()
    return std::stoi(userInput);
 }
 
-//Main driver code here
+void printLogin(const login& entry)
+{
+   if(entry.website == "NULL") {
+      std::cout << "The login for the given website could not be found!\n\n";
+   } else {
+      std::cout << "Website: " << entry.website << "\nUsername:  " << entry.username 
+                << "\nPassword: " << entry.password << '\n' << std::endl;
+   }
+}
+
+login getLogin(const HashTable& manager)
+{
+   std::string website = "";
+   std::cout << "What is the website of the login you want to get? ";
+   while(!(std::cin >> website)) {
+      clearInputStream();
+      std::cerr << "Failed to recieve user input, try again! ";
+   }
+   clearInputStream();
+   return manager.searchTable(website);
+}
+
+void addLogin(HashTable& manager)
+{
+   std::string website = "";
+   std::string username = "";
+   std::string password = "";
+
+   std::cout << "What is the name of the website you want to add? ";
+   while(!(std::cin >> website)) {
+      clearInputStream();
+      std::cerr << "Failed to recieve user input, try again! ";
+   }
+   clearInputStream();
+
+   std::cout << "\nWhat is the username you would like to add? ";
+   while(!(std::cin >> username)) {
+      clearInputStream();
+      std::cerr << "Failed to recieve user input, try again! ";
+   }
+   clearInputStream();
+
+   std::cout << "What is the password you would like to add? ";
+   while(!(std::cin >> password)) {
+      clearInputStream();
+      std::cerr << "Failed to recieve user input, try again! ";
+   }
+   clearInputStream();
+
+   manager.insertNode(website, username, password);
+}
+
 int main()
 {
    /*
@@ -54,62 +105,25 @@ int main()
    
    HashTable passwordManager;
    bool keepGoing = true;
-   std::string userInput = "";
-   std::string userInput2 = "";
-   std::string userInput3 = "";
+   std::string website = "";
+   std::string username = "";
+   std::string password = "";
    std::cout << "Welcome to Caden's Password Manager!\n";
 
    while(keepGoing) {
-      userInput = "";
+      website = "";
+      username = "";
+      password = "";
+
       switch(recieveUserInputMenu()) {
          case 1:
             passwordManager.printTable();
             break;
          case 2:
-            std::cout << "What is the website of the login you want to get? ";
-
-            if(!(std::cin >> userInput)) {
-               std::cerr << "Failed to recieve user input, aborting program!\n";
-               return 1;
-            }
-
-            {
-               const login returnedLogin = passwordManager.searchTable(userInput);
-               if(returnedLogin.website == "NULL") {
-                  std::cout << "The login for the given website could not be found!\n\n";
-               } else {
-                  std::cout << "Website: " << userInput << "\nUsername:  " 
-                            << returnedLogin.username << "\nPassword: " << returnedLogin.password
-                            << '\n' << std::endl;
-               }
-
-               clearInputStream();
-            }
+            printLogin(getLogin(passwordManager));
             break;
          case 3:
-            std::cout << "What is the name of the website you want to add? ";
-            
-            if(!(std::cin >> userInput)) {
-               std::cerr << "Failed to recieve user input, aborting program!\n";
-               return 1;
-            }
-
-            clearInputStream();
-            std::cout << "\nWhat is the username you would like to add? ";
-            
-            if(!(std::cin >> userInput2)) {
-               std::cerr << "Failed to recieve user input, aborting program!\n";
-               return 1;
-            }
-
-            clearInputStream();
-            std::cout << "What is the password you would like to add? ";
-            if(!(std::cin >> userInput3)) {
-               std::cerr << "Failed to recieve user input, aborting program!\n";
-               return 1;
-            }
-
-            passwordManager.insertNode(userInput, userInput2, userInput3);
+            addLogin(passwordManager);
             break;
          case 4:
             
@@ -117,7 +131,7 @@ int main()
          case 5:
             std::cout << "What is the name of the website you want to change? ";
             
-            if(!(std::cin >> userInput)) {
+            if(!(std::cin >> website)) {
                std::cerr << "Failed to recieve user input, aborting program!\n";
                return 1;
             }
@@ -125,13 +139,13 @@ int main()
             clearInputStream();
             std::cout << "\nWhat is the password you would like to add: ";
             
-            if(!(std::cin >> userInput2)) {
+            if(!(std::cin >> username)) {
                std::cerr << "Failed to recieve user input, aborting program!\n";
                return 1;
             }
 
             clearInputStream();
-            passwordManager.changePassword(userInput, userInput2);
+            passwordManager.changePassword(website, username);
             break;
          case 6:
             keepGoing = false;

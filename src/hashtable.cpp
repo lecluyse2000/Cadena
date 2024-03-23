@@ -67,7 +67,7 @@ void HashTable::removeNode(std::string_view key)
    }
 }
 
-[[nodiscard]] login HashTable::searchTable(std::string_view key) const noexcept
+login HashTable::searchTable(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {

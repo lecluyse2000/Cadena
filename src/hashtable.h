@@ -31,7 +31,7 @@ class HashTable
       bool isEmpty() const noexcept;
       void insertNode(const std::string& key, const std::string& username, const std::string& value);
       void removeNode(std::string_view key);
-      [[nodiscard]] login searchTable(std::string_view key) const noexcept;
+      login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
       void changePassword(std::string_view key, const std::string& newPassword);
    
