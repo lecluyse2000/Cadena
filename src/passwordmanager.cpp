@@ -29,7 +29,7 @@ std::string PasswordManager::receiveUserInput() const
 login PasswordManager::getLogin() const
 {
    std::string website = "";
-   std::cout << "What is the website of the login you want to get? ";
+   std::cout << "\nWhat is the website of the login you want to get? ";
    while(!(std::cin >> website)) {
       clearInputStream();
       std::cerr << "Failed to recieve user input, try again! ";
@@ -43,20 +43,20 @@ void PasswordManager::printLogin(const login& entry) const
    if(entry.website == "NULL") {
       std::cerr << "The login for the given website could not be found!\n\n";
    } else {
-      std::cout << "Website: " << entry.website << "\nUsername:  " << entry.username 
+      std::cout << "\nWebsite: " << entry.website << "\nUsername:  " << entry.username 
                 << "\nPassword: " << entry.password << '\n' << std::endl;
    }
 }
 
 void PasswordManager::addLogin()
 {
-   std::cout << "What is the name of the website you want to add? ";
+   std::cout << "\nWhat is the name of the website you want to add? ";
    std::string website = receiveUserInput();
 
-   std::cout << "\nWhat is the username you would like to add? ";
+   std::cout << "What is the username you would like to add? ";
    std::string username = receiveUserInput();
 
-   std::cout << "\nWhat is the password you would like to add? ";
+   std::cout << "What is the password you would like to add? ";
    std::string password = receiveUserInput();
 
    manager.insertNode(website, username, password);
@@ -64,7 +64,7 @@ void PasswordManager::addLogin()
 
 void PasswordManager::removeLogin()
 {
-   std::cout << "What is the name of the website you want to remove? ";
+   std::cout << "\nWhat is the name of the website you want to remove? ";
    const std::string website = receiveUserInput();
 
    if(manager.removeNode(website)) {
@@ -76,7 +76,11 @@ void PasswordManager::removeLogin()
 
 void PasswordManager::printLogins() const noexcept
 {
-   manager.printTable();
+   if(manager.isEmpty()) {
+      std::cout << "You don't have any passwords added!\n\n";
+   } else {
+      manager.printTable();
+   }
 }
 
 void PasswordManager::changeLogin()

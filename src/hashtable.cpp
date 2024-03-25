@@ -27,7 +27,10 @@ HashTable::~HashTable()
 
 bool HashTable::isEmpty() const noexcept 
 {
-   return m_table.empty();
+   if(m_numberLogins == 0) {
+      return true;
+   }
+   return false;
 }
 
 [[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
