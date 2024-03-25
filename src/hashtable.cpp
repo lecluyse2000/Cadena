@@ -113,6 +113,20 @@ void HashTable::printTable() const noexcept
    });
 }
 
+bool HashTable::changeUsername(std::string_view key, std::string&& newUsername)
+{
+   const std::size_t hashValue = hashFunction(key);
+   const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
+      return entry.website == key;
+   });
+
+   if(itr != m_table[hashValue].end()) {
+      itr->username = newUsername;
+      return true;
+   } 
+   return false;
+}
+
 bool HashTable::changePassword(std::string_view key, std::string&& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);

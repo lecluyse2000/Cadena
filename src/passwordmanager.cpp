@@ -77,6 +77,24 @@ void PasswordManager::printLogins()
 
 void PasswordManager::changeLogin()
 {
-   
+   char usernameFlag = 'n';
+   std::cout << "What is the website of the login you wish to change? ";
+   const website = receiveUserInput();
 
+   std::cout << "Would  you like to change your username?";
+   while(!(std::cin >> usernameFlag) || toupper(usernameFlag) != 'N' || toupper(usernameFlag) != 'Y') {
+      clearInputStream();
+      std::cerr << "Failed to recieve input! Try again! ";
+   }
+   clearInputStream();
+
+   if(toupper(usernameFlag) == 'Y') {
+      std::cout << "What is the new username? ";
+      const username = receiveUserInput();
+      manager.changeUsername(website, username);
+   }
+
+   std::cout << "What is the new password? ";
+   const password = receiveUserInput();
+   manager.changePassword();
 }

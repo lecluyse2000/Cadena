@@ -32,6 +32,7 @@ class HashTable
       bool removeNode(std::string_view key);
       login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
+      bool changeUsername(std::string_view key, std::string&& newUsername);
       bool changePassword(std::string_view key, std::string&& newPassword);
    
    private:
