@@ -15,6 +15,7 @@ class PasswordManager
    private:
       HashTable manager;
       void clearInputStream();
+      void receiveUserInput();
 };
 
 #endif

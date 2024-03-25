@@ -7,7 +7,6 @@
 #include <limits>
 #include "hashtable.h"
 //#include <sodium.h>
-#include <stdexcept>
 #include <string>
 
 
@@ -39,57 +38,6 @@ int recieveUserInputMenu()
    return std::stoi(userInput);
 }
 
-void printLogin(const login& entry)
-{
-   if(entry.website == "NULL") {
-      std::cout << "The login for the given website could not be found!\n\n";
-   } else {
-      std::cout << "Website: " << entry.website << "\nUsername:  " << entry.username 
-                << "\nPassword: " << entry.password << '\n' << std::endl;
-   }
-}
-
-login getLogin(const HashTable& manager)
-{
-   std::string website = "";
-   std::cout << "What is the website of the login you want to get? ";
-   while(!(std::cin >> website)) {
-      clearInputStream();
-      std::cerr << "Failed to recieve user input, try again! ";
-   }
-   clearInputStream();
-   return manager.searchTable(website);
-}
-
-void addLogin(HashTable& manager)
-{
-   std::string website = "";
-   std::string username = "";
-   std::string password = "";
-
-   std::cout << "What is the name of the website you want to add? ";
-   while(!(std::cin >> website)) {
-      clearInputStream();
-      std::cerr << "Failed to recieve user input, try again! ";
-   }
-   clearInputStream();
-
-   std::cout << "\nWhat is the username you would like to add? ";
-   while(!(std::cin >> username)) {
-      clearInputStream();
-      std::cerr << "Failed to recieve user input, try again! ";
-   }
-   clearInputStream();
-
-   std::cout << "What is the password you would like to add? ";
-   while(!(std::cin >> password)) {
-      clearInputStream();
-      std::cerr << "Failed to recieve user input, try again! ";
-   }
-   clearInputStream();
-
-   manager.insertNode(website, username, password);
-}
 
 int main()
 {
