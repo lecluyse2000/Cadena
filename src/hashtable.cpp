@@ -45,14 +45,13 @@ bool HashTable::isEmpty() const noexcept
    return hashValue & (m_vectorSize - 1);
 }
 
-void HashTable::insertNode(const std::string& key, const std::string& username, const std::string& value)
+void HashTable::insertNode(std::string& key, std::string& username, std::string& value)
 {
    const std::size_t hashValue = hashFunction(key);
    m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
-   std::cout << "The password was added!\n";
 }
 
-void HashTable::removeNode(std::string_view key)
+bool HashTable::removeNode(std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
@@ -61,10 +60,9 @@ void HashTable::removeNode(std::string_view key)
 
    if(itr != m_table[hashValue].end()) {
       m_table[hashValue].erase(itr);
-      std::cout << "The given login was removed!\n";
-   } else {
-      std::cout << "Could not find the login!\n";
-   }
+      return true;
+   } 
+   return false;
 }
 
 login HashTable::searchTable(std::string_view key) const noexcept
@@ -92,7 +90,7 @@ void HashTable::printTable() const noexcept
    });
 }
 
-void HashTable::changePassword(std::string_view key, const std::string& newPassword)
+bool HashTable::changePassword(std::string_view key, std::string&& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
@@ -100,9 +98,8 @@ void HashTable::changePassword(std::string_view key, const std::string& newPassw
    });
 
    if(itr != m_table[hashValue].end()) {
-      itr->password = std::move(newPassword);
-      std::cout << "The password was changed!\n";
-   } else {
-      std::cout << "The password was unable to be found!\n";
-   }
+      itr->password = newPassword;
+      return true;
+   } 
+   return false;
 }

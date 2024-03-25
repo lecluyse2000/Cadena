@@ -17,8 +17,8 @@ struct login
    std::string username;
    std::string password;
 
-   login(const std::string& webpage, const std::string& loginID,
-         const std::string& passphrase)
+   login(std::string&& webpage, std::string&& loginID,
+         std::string&& passphrase)
          : website(webpage), username(loginID), password(passphrase) {}
 };
 
@@ -29,11 +29,11 @@ class HashTable
       ~HashTable();
       void resize(const std::size_t size);
       bool isEmpty() const noexcept;
-      void insertNode(const std::string& key, const std::string& username, const std::string& value);
-      void removeNode(std::string_view key);
+      void insertNode(std::string& key, std::string& username, std::string& value);
+      bool removeNode(std::string_view key);
       login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
-      void changePassword(std::string_view key, const std::string& newPassword);
+      bool changePassword(std::string_view key, std::string&& newPassword);
    
    private:
       std::size_t m_vectorSize{ 256 };

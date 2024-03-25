@@ -139,13 +139,13 @@ int main()
             clearInputStream();
             std::cout << "\nWhat is the password you would like to add: ";
             
-            if(!(std::cin >> username)) {
+            if(!(std::cin >> password)) {
                std::cerr << "Failed to recieve user input, aborting program!\n";
                return 1;
             }
 
             clearInputStream();
-            passwordManager.changePassword(website, username);
+            passwordManager.changePassword(website, std::move(password));
             break;
          case 6:
             keepGoing = false;
