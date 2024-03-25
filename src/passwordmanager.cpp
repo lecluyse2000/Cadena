@@ -64,7 +64,7 @@ void PasswordManager::removeLogin()
    const website = receiveUserInput();
 
    if(manager.removeNode(website)) {
-      std::cout << "The website's login was successfully removed!\n\n"
+      std::cout << "The website's login was successfully removed!\n\n";
    } else {
       std::cout << website << " could not be found!\n\n";
    }
