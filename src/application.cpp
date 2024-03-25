@@ -1,7 +1,9 @@
+#include <iostream>
 #include <string>
 #include <limits>
 #include "application.h"
 #include "passwordmanager.h"
+#include "hashtable.h"
 
 void Application::printMenu() const noexcept
 {
@@ -15,22 +17,27 @@ void Application::clearInputStream() const
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-int Application::recieveUserInputMenu() const
+void Application::verifyUserInputMenu(std::string& input) const
 {
-   std::string userInput; 
-
-   while(!(std::cin >> userInput) || userInput.size() != 1 || !isdigit(userInput[0]) 
-         || std::stoi(userInput) > 6 || std::stoi(userInput) < 1) {
+   while(std::cin.fail() || input.size() != 1 || !isdigit(input[0]) 
+         || std::stoi(input) > 6 || std::stoi(input) < 1) {
       clearInputStream();
       std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
+      std::cin >> input;
    } 
+   clearInputStream();
+}
 
-   std::cout << std::endl;
+int Application::receiveUserInputMenu() const
+{
+   std::string userInput; 
+   std::cin >> userInput;
+   verifyUserInputMenu(userInput);
 
    return std::stoi(userInput);
 }
 
-void run()
+void Application::run()
 {
    /*
    //Initialize libsodium
@@ -47,7 +54,7 @@ void run()
 
    while(keepGoing) {
       printMenu();
-      switch(recieveUserInputMenu()) {
+      switch(receiveUserInputMenu()) {
          case 1:
             database.printLogins();
             break;
@@ -55,7 +62,7 @@ void run()
             database.printLogin(database.getLogin());
             break;
          case 3:
-            database.addlogin();
+            database.addLogin();
             break;
          case 4:
             database.removeLogin(); 

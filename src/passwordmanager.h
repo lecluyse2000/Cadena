@@ -1,6 +1,9 @@
 #ifndef PASSWORDMANAGER_H
 #define PASSWORDMANAGER_H
 
+#include <iostream>
+#include <limits>
+#include <string>
 #include "hashtable.h"
 
 class PasswordManager
@@ -16,7 +19,7 @@ class PasswordManager
    private:
       HashTable manager;
       void clearInputStream() const;
-      void receiveUserInput() const;
+      std::string receiveUserInput() const;
 };
 
 #endif
