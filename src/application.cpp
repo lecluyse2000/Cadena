@@ -42,6 +42,32 @@ int Application::receiveUserInputMenu() const
    return std::stoi(userInput);
 }
 
+void Application::userInterface(bool& keepGoing) 
+{
+   printMenu();
+   switch(receiveUserInputMenu()) {
+      case 1:
+         database.printLogins();
+         break;
+      case 2:
+         database.printLogin(database.getLogin());
+         break;
+      case 3:
+         database.addLogin();
+         break;
+      case 4:
+         database.removeLogin(); 
+         break;
+      case 5:
+         database.changeLogin();
+         break;
+      case 6:
+         keepGoing = false;
+         std::cout << "Exiting...\n\n";
+         break;
+   }
+}
+
 void Application::run()
 {
    /*
@@ -58,27 +84,6 @@ void Application::run()
    std::cout << "Welcome to Caden's Password Manager!\n";
 
    while(keepGoing) {
-      printMenu();
-      switch(receiveUserInputMenu()) {
-         case 1:
-            database.printLogins();
-            break;
-         case 2:
-            database.printLogin(database.getLogin());
-            break;
-         case 3:
-            database.addLogin();
-            break;
-         case 4:
-            database.removeLogin(); 
-            break;
-         case 5:
-            database.changeLogin();
-            break;
-         case 6:
-            keepGoing = false;
-            std::cout << "Exiting...\n\n";
-            break;
-      }
+      userInterface(keepGoing);
    }
 }

@@ -24,7 +24,7 @@ class Application
       void clearInputStream() const;  
       void verifyUserInputMenu(std::string& input) const;
       int receiveUserInputMenu() const;
-
+      void userInterface(bool& keepGoing);
 };
 
 
