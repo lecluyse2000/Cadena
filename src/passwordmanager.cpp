@@ -28,7 +28,7 @@ std::string PasswordManager::receiveUserInput() const
 
 login PasswordManager::getLogin() const
 {
-   std::string website = "";
+   std::string website = receiveUserInput();
    std::cout << "\nWhat is the website of the login you want to get? ";
    while(!(std::cin >> website)) {
       clearInputStream();
