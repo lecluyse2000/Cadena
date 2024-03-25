@@ -4,13 +4,13 @@
 #include "passwordmanager.h"
 #include "hashtable.h"
 
-void PasswordManager::clearInputStream()
+void PasswordManager::clearInputStream() const
 {
    std::cin.clear();
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-void PasswordManager::receiveUserInput()
+void PasswordManager::receiveUserInput() const
 {
    std::string returnString;
    while(!(std::cin >> returnString)) {
@@ -22,7 +22,7 @@ void PasswordManager::receiveUserInput()
    return returnString;
 }
 
-login PasswordManager::getLogin()
+login PasswordManager::getLogin() const
 {
    std::string website = "";
    std::cout << "What is the website of the login you want to get? ";
@@ -34,10 +34,10 @@ login PasswordManager::getLogin()
    return manager.searchTable(website);
 }
 
-void PasswordManager::printLogin(const login& entry)
+void PasswordManager::printLogin(const login& entry) const
 {
    if(entry.website == "NULL") {
-      std::cout << "The login for the given website could not be found!\n\n";
+      std::cerr << "The login for the given website could not be found!\n\n";
    } else {
       std::cout << "Website: " << entry.website << "\nUsername:  " << entry.username 
                 << "\nPassword: " << entry.password << '\n' << std::endl;
@@ -70,7 +70,7 @@ void PasswordManager::removeLogin()
    }
 }
 
-void PasswordManager::printLogins()
+void PasswordManager::printLogins() const noexcept
 {
    manager.printTable();
 }
