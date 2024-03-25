@@ -28,7 +28,6 @@ class HashTable
       HashTable();
       ~HashTable();
       bool isEmpty() const noexcept;
-      void resize();
       void insertNode(std::string& key, std::string& username, std::string& value);
       bool removeNode(std::string_view key);
       login searchTable(std::string_view key) const noexcept;
@@ -40,6 +39,7 @@ class HashTable
       unsigned int m_numberLogins{ 0 };
       std::vector<std::vector<login>> m_table;
       [[nodiscard]] constexpr std::size_t hashFunction(std::string_view key) const noexcept;
+      void resize();
 };
 
 #endif
