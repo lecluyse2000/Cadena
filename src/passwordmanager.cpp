@@ -81,7 +81,7 @@ void PasswordManager::changeLogin()
    std::cout << "What is the website of the login you wish to change? ";
    const website = receiveUserInput();
 
-   std::cout << "Would  you like to change your username?";
+   std::cout << "Would  you like to change your username? (Y/N): ";
    while(!(std::cin >> usernameFlag) || toupper(usernameFlag) != 'N' || toupper(usernameFlag) != 'Y') {
       clearInputStream();
       std::cerr << "Failed to recieve input! Try again! ";

@@ -10,13 +10,13 @@ class PasswordManager
       void printLogin(const login& entry) const; 
       void addLogin();
       void removeLogin();
-      void printLogins();
+      void printLogins() const;
       void changeLogin();
 
    private:
       HashTable manager;
-      void clearInputStream();
-      void receiveUserInput();
+      void clearInputStream() const;
+      void receiveUserInput() const;
 };
 
 #endif
