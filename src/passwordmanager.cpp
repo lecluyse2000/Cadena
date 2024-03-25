@@ -4,13 +4,13 @@
 #include "passwordmanager.h"
 #include "hashtable.h"
 
-void clearInputStream()
+void PasswordManager::clearInputStream()
 {
    std::cin.clear();
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-void receiveUserInput()
+void PasswordManager::receiveUserInput()
 {
    std::string returnString;
    while(!(std::cin >> returnString)) {
@@ -22,7 +22,7 @@ void receiveUserInput()
    return returnString;
 }
 
-login getLogin()
+login PasswordManager::getLogin()
 {
    std::string website = "";
    std::cout << "What is the website of the login you want to get? ";
@@ -34,7 +34,7 @@ login getLogin()
    return manager.searchTable(website);
 }
 
-void printLogin(const login& entry)
+void PasswordManager::printLogin(const login& entry)
 {
    if(entry.website == "NULL") {
       std::cout << "The login for the given website could not be found!\n\n";
@@ -44,7 +44,7 @@ void printLogin(const login& entry)
    }
 }
 
-void addLogin()
+void PasswordManager::addLogin()
 {
    std::cout << "What is the name of the website you want to add? ";
    const std::string website = receiveUserInput();
@@ -58,7 +58,7 @@ void addLogin()
    manager.insertNode(website, username, password);
 }
 
-void removeLogin()
+void PasswordManager::removeLogin()
 {
    std::cout << "What is the name of the website you want to remove? ";
    const website = receiveUserInput();
@@ -68,4 +68,15 @@ void removeLogin()
    } else {
       std::cout << website << " could not be found!\n\n";
    }
+}
+
+void PasswordManager::printLogins()
+{
+   manager.printTable();
+}
+
+void PasswordManager::changeLogin()
+{
+   
+
 }

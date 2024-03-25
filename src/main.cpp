@@ -38,7 +38,6 @@ int recieveUserInputMenu()
    return std::stoi(userInput);
 }
 
-
 int main()
 {
    /*
