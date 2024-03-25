@@ -22,7 +22,7 @@ void receiveUserInput()
    return returnString;
 }
 
-login getLogin(const HashTable& manager)
+login getLogin()
 {
    std::string website = "";
    std::cout << "What is the website of the login you want to get? ";
@@ -52,8 +52,20 @@ void addLogin()
    std::cout << "\nWhat is the username you would like to add? ";
    const std::string username = receiveUserInput();
 
-   std::cout << "What is the password you would like to add? ";
+   std::cout << "\nWhat is the password you would like to add? ";
    const std::string password = receiveUserInput();
 
    manager.insertNode(website, username, password);
+}
+
+void removeLogin()
+{
+   std::cout << "What is the name of the website you want to remove? ";
+   const website = receiveUserInput();
+
+   if(manager.removeNode(website)) {
+      std::cout << "The website's login was successfully removed!\n\n"
+   } else {
+      std::cout << website << " could not be found!\n\n";
+   }
 }
