@@ -25,11 +25,6 @@ HashTable::~HashTable()
    }); 
 }
 
-void HashTable::resize(const std::size_t size)
-{
-   m_table.resize(size);
-}
-
 bool HashTable::isEmpty() const noexcept 
 {
    return m_table.empty();
@@ -45,10 +40,37 @@ bool HashTable::isEmpty() const noexcept
    return hashValue & (m_vectorSize - 1);
 }
 
+void HashTable::resize()
+{
+   m_vectorSize *= 2;
+   m_table.resize(m_vectorSize);
+   std::vector<std::vector<login>> newHashTable(m_vectorSize); 
+
+   std::ranges::for_each(m_table, [&newHashTable, this](const std::vector<login>& vector) {
+      std::ranges::for_each(vector, [&newHashTable, this](const login& entry) {
+         const std::size_t newHash = this->hashFunction(entry.website);
+         newHashTable[newHash].push_back(entry);
+      });
+   });
+
+   m_table.swap(newHashTable);
+}
+
 void HashTable::insertNode(std::string& key, std::string& username, std::string& value)
 {
+   //717/1024 gives a load factor of .7, plus idk why anyone would need more than 200 logins
+   //But I'll let them have upto 717, I honestly wasn't going to implement resizing but figured I probably should
+   if(m_numberLogins + 1 == 717) {
+      std::cerr << "MAX number of logins reached! Why do you have so many logins?\n";
+      return;
+   }
    const std::size_t hashValue = hashFunction(key);
    m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
+   m_numberLogins++;
+
+   if(static_cast<double>(m_numberLogins) / m_vectorSize >= 0.7) {
+      resize();
+   }
 }
 
 bool HashTable::removeNode(std::string_view key)
@@ -60,6 +82,7 @@ bool HashTable::removeNode(std::string_view key)
 
    if(itr != m_table[hashValue].end()) {
       m_table[hashValue].erase(itr);
+      m_numberLogins--;
       return true;
    } 
    return false;
