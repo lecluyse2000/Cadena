@@ -1,3 +1,7 @@
+//Author: Caden LeCluyse
+//Date: 3/25/24
+//Filename: passwordmanager.cpp 
+
 #include <iostream>
 #include <limits>
 #include <string>

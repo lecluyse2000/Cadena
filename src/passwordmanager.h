@@ -1,3 +1,7 @@
+//Author: Caden LeCluyse
+//Date: 3/25/24
+//Filename: passwordmanager.h
+
 #ifndef PASSWORDMANAGER_H
 #define PASSWORDMANAGER_H
 

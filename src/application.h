@@ -1,3 +1,7 @@
+//Author: Caden LeCluyse
+//Date: 3/25/24
+//Filename: application.h
+
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
