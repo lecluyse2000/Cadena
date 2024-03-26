@@ -33,13 +33,13 @@ void Application::verifyUserInputMenu(std::string& input) const
    clearInputStream();
 }
 
-int Application::receiveUserInputMenu() const
+uint8_t Application::receiveUserInputMenu() const
 {
    std::string userInput; 
    std::cin >> userInput;
    verifyUserInputMenu(userInput);
 
-   return std::stoi(userInput);
+   return static_cast<uint8_t>(std::stoi(userInput));
 }
 
 void Application::userInterface(bool& keepGoing) 

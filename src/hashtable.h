@@ -37,7 +37,7 @@ class HashTable
    
    private:
       std::size_t m_vectorSize{ 256 };
-      unsigned int m_numberLogins{ 0 };
+      uint16_t m_numberLogins{ 0 };
       std::vector<std::vector<login>> m_table;
       [[nodiscard]] constexpr std::size_t hashFunction(std::string_view key) const noexcept;
       void resize();
