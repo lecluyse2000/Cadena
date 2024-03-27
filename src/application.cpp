@@ -8,7 +8,6 @@
 #include <limits>
 #include "application.h"
 #include "passwordmanager.h"
-#include "hashtable.h"
 
 void Application::printMenu() const noexcept
 {

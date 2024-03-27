@@ -109,8 +109,9 @@ void HashTable::printTable() const noexcept
    //This is the first lambda function I have ever implemented
    std::ranges::for_each(m_table, [](const std::vector<login>& entry) {
       std::ranges::for_each(entry, [](const login& t_login) {
-         std::cout << "\nWebsite: " << t_login.website << "\nUsername: " 
-                   << t_login.username  << "\nPassword: " << t_login.password << '\n' 
+         const auto [website, username, password] = t_login;
+         std::cout << "\nWebsite: " << website << "\nUsername: " 
+                   << username  << "\nPassword: " << password << '\n' 
                    << std::endl;
       });
    });

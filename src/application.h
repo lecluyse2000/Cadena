@@ -9,7 +9,6 @@
 #include <string>
 #include <limits>
 #include "passwordmanager.h"
-#include "hashtable.h"
 
 class Application
 {

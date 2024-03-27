@@ -35,11 +35,12 @@ login PasswordManager::getLogin() const
 
 void PasswordManager::printLogin(const login& entry) const
 {
-   if(entry.website == "NULL") {
+   const auto [website, username, password] = entry;
+   if(website == "NULL") {
       std::cerr << "The login for the given website could not be found!\n\n";
    } else {
-      std::cout << "\nWebsite: " << entry.website << "\nUsername:  " << entry.username 
-                << "\nPassword: " << entry.password << '\n' << std::endl;
+      std::cout << "\nWebsite: " << website << "\nUsername:  " << username
+                << "\nPassword: " << password << '\n' << std::endl;
    }
 }
 
