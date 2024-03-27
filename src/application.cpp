@@ -83,6 +83,6 @@ void Application::run()
    std::cout << "Welcome to Caden's Password Manager!\n";
 
    while(loopFlag) {
-      userInterface(keepGoing);
+      userInterface();
    }
 }
