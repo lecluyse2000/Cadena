@@ -42,7 +42,7 @@ uint8_t Application::receiveUserInputMenu() const
    return static_cast<uint8_t>(std::stoi(userInput));
 }
 
-void Application::userInterface(bool& keepGoing) 
+void Application::userInterface() 
 {
    printMenu();
    switch(receiveUserInputMenu()) {
@@ -80,7 +80,6 @@ void Application::run()
    }
    */
    
-   bool keepGoing = true;
    std::cout << "Welcome to Caden's Password Manager!\n";
 
    while(keepGoing) {

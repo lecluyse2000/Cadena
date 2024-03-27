@@ -20,11 +20,12 @@ class Application
 
    private:
       PasswordManager database;
+      bool keepGoing{ true };
       void printMenu() const noexcept;
       void clearInputStream() const;  
       void verifyUserInputMenu(std::string& input) const;
       uint8_t receiveUserInputMenu() const;
-      void userInterface(bool& keepGoing);
+      void userInterface();
 };
 
 
