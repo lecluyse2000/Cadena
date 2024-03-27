@@ -62,7 +62,7 @@ void Application::userInterface()
          database.changeLogin();
          break;
       case 6:
-         keepGoing = false;
+         loopFlag = false;
          std::cout << "Exiting...\n\n";
          break;
    }
@@ -82,7 +82,7 @@ void Application::run()
    
    std::cout << "Welcome to Caden's Password Manager!\n";
 
-   while(keepGoing) {
+   while(loopFlag) {
       userInterface(keepGoing);
    }
 }

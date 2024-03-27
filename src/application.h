@@ -20,7 +20,7 @@ class Application
 
    private:
       PasswordManager database;
-      bool keepGoing{ true };
+      bool loopFlag{ true };
       void printMenu() const noexcept;
       void clearInputStream() const;  
       void verifyUserInputMenu(std::string& input) const;
