@@ -17,7 +17,7 @@ class PasswordManager
       void printLogin(const login& entry) const; 
       void addLogin();
       void removeLogin();
-      void printLogins() const noexcept;
+      void printAllLogins() const noexcept;
       void changeLogin();
 
    private:

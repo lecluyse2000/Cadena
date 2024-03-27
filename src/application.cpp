@@ -47,7 +47,7 @@ void Application::userInterface()
    printMenu();
    switch(receiveUserInputMenu()) {
       case 1:
-         database.printLogins();
+         database.printAllLogins();
          break;
       case 2:
          database.printLogin(database.getLogin());

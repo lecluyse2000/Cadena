@@ -69,7 +69,7 @@ void PasswordManager::removeLogin()
    }
 }
 
-void PasswordManager::printLogins() const noexcept
+void PasswordManager::printAllLogins() const noexcept
 {
    if(manager.isEmpty()) {
       std::cout << "You don't have any passwords added!\n\n";
