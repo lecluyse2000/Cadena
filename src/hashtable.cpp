@@ -10,8 +10,8 @@
 #include <string>
 #include <string_view>
 #include <iostream>
-#include "hashtable.h"
 #include <algorithm>
+#include "hashtable.h"
 
 #define PRIME_1 57649
 #define PRIME_2 86969
@@ -27,10 +27,7 @@ HashTable::~HashTable()
 
 bool HashTable::isEmpty() const noexcept 
 {
-   if(m_numberLogins == 0) {
-      return true;
-   }
-   return false;
+   return m_numberLogins == 0;
 }
 
 [[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
