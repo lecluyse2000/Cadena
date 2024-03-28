@@ -21,22 +21,20 @@ void Application::clearInputStream() const
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-void Application::verifyUserInputMenu(std::string& input) const
+bool Application::verifyUserInputMenu(std::string& input) const
 {
-   while(std::cin.fail() || input.size() != 1 || !isdigit(input[0]) 
-         || std::stoi(input) > 6 || std::stoi(input) < 1) {
-      clearInputStream();
-      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
-      std::cin >> input;
-   } 
-   clearInputStream();
+   return(input.size() != 1 || !isdigit(input[0]) 
+          || std::stoi(input) > 6 || std::stoi(input) < 1); 
 }
 
 uint8_t Application::receiveUserInputMenu() const
 {
    std::string userInput; 
-   std::cin >> userInput;
-   verifyUserInputMenu(userInput);
+   while(!(std::cin >> userInput) || verifyUserInputMenu(userInput)) {
+      clearInputStream();
+      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
+   }
+   clearInputStream();
 
    return static_cast<uint8_t>(std::stoi(userInput));
 }

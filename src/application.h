@@ -22,7 +22,7 @@ class Application
       bool loopFlag{ true };
       void printMenu() const noexcept;
       void clearInputStream() const;  
-      void verifyUserInputMenu(std::string& input) const;
+      bool verifyUserInputMenu(std::string& input) const;
       uint8_t receiveUserInputMenu() const;
       void userInterface();
 };
