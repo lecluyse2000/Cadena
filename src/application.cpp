@@ -11,8 +11,8 @@
 
 void Application::printMenu() const noexcept
 {
-   std::cout << "\n1) Print all passwords\n2) Print specific password\n3) Add a password\n"
-             << "4) Remove a password\n5) Change a password\n6) Exit program\nYour choice: ";
+   std::cout << "\n1) Print all logins\n2) Print specific login\n3) Add a login\n"
+             << "4) Remove a login\n5) Change a login\n6) Exit program\nYour choice: ";
 }
 
 void Application::clearInputStream() const

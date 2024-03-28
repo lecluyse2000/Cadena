@@ -5,6 +5,7 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <string_view>
 #include "passwordmanager.h"
 #include "hashtable.h"
 
@@ -79,11 +80,31 @@ void PasswordManager::printAllLogins() const noexcept
    }
 }
 
+void PasswordManager::changeUsername(std::string_view website)
+{
+   std::cout << "What is the new username? ";
+   std::string username = receiveUserInput();
+   manager.changeUsername(website, std::move(username));
+
+}
+
+void PasswordManager::changePassword(std::string_view website)
+{
+   std::cout << "What is the new password? ";
+   std::string password = receiveUserInput();
+   manager.changePassword(website, std::move(password));
+}
+
 void PasswordManager::changeLogin()
 {
    char usernameFlag = 'n';
    std::cout << "What is the website of the login you wish to change? ";
    const std::string website = receiveUserInput();
+   
+   if(!manager.verifyEntry(website)) {
+      std::cout << "The given website could not be found!\n";
+      return;
+   }
 
    std::cout << "Would  you like to change your username? (Y/N): ";
    while(!(std::cin >> usernameFlag) || (toupper(usernameFlag) != 'N' && toupper(usernameFlag) != 'Y')) {
@@ -93,12 +114,7 @@ void PasswordManager::changeLogin()
    clearInputStream();
 
    if(toupper(usernameFlag) == 'Y') {
-      std::cout << "What is the new username? ";
-      std::string username = receiveUserInput();
-      manager.changeUsername(website, std::move(username));
+      changeUsername(website);
    }
-
-   std::cout << "What is the new password? ";
-   std::string password = receiveUserInput();
-   manager.changePassword(website, std::move(password));
+   changePassword(website);
 }

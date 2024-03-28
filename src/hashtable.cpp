@@ -40,6 +40,19 @@ bool HashTable::isEmpty() const noexcept
    return hashValue & (m_vectorSize - 1);
 }
 
+bool HashTable::verifyEntry(std::string_view key) const noexcept
+{
+   const std::size_t hashValue = hashFunction(key);
+   const auto itr = std::ranges::find_if(m_table[hashValue], [&key](const login& entry) {
+      return entry.website == key;
+   });
+   
+   if(itr != m_table[hashValue].end()) {
+      return true;
+   }
+   return false;
+}
+
 void HashTable::resize()
 {
    m_vectorSize *= 2;
