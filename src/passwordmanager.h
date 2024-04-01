@@ -9,6 +9,7 @@
 #include <limits>
 #include <string>
 #include <string_view>
+#include <cstdint>
 #include "hashtable.h"
 
 class PasswordManager

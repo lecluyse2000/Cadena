@@ -7,9 +7,9 @@
 #define HASHTABLE_H
 
 #include <vector>
-#include <utility>
 #include <string>
 #include <string_view>
+#include <cstdint>
 
 struct login
 {
