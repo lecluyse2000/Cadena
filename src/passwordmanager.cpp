@@ -69,6 +69,7 @@ void PasswordManager::removeLogin()
 
    if(manager.verifyEntry(website)) {
       manager.removeNode(website);
+      std::cout << "The login was removed!\n\n";
    } else {
       std::cerr << "The given login is not in the table!\n";
    }
@@ -120,4 +121,5 @@ void PasswordManager::changeLogin()
       changeUsername(website);
    }
    changePassword(website);
+   std::cout << "The login was changed!\n\n";
 }

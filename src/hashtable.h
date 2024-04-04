@@ -30,7 +30,7 @@ class HashTable
       bool isEmpty() const noexcept;
       bool verifyEntry(std::string_view key) const noexcept;
       void insertNode(std::string& key, std::string& username, std::string& value);
-      bool removeNode(std::string_view key);
+      void  removeNode(std::string_view key);
       login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
       void changeUsername(std::string_view key, std::string&& newUsername);

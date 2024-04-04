@@ -86,19 +86,15 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
    }
 }
 
-bool HashTable::removeNode(std::string_view key)
+void HashTable::removeNode(std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
       return entry.website == key;
    });
 
-   if(itr != m_table[hashValue].end()) {
-      m_table[hashValue].erase(itr);
-      m_numberLogins--;
-      return true;
-   } 
-   return false;
+   m_table[hashValue].erase(itr);
+   m_numberLogins--;
 }
 
 login HashTable::searchTable(std::string_view key) const noexcept
