@@ -31,7 +31,10 @@ login PasswordManager::getLogin() const
 {
    std::cout << "\nWhat is the website of the login you want to get? ";
    std::string website = receiveUserInput();
-   return manager.searchTable(website);
+   if(manager.verifyEntry(website)) {
+      return manager.searchTable(website);
+   }
+   return {"NULL", "NULL", "NULL"};
 }
 
 void PasswordManager::printLogin(const login& entry) const
@@ -64,10 +67,10 @@ void PasswordManager::removeLogin()
    std::cout << "\nWhat is the name of the website you want to remove? ";
    const std::string website = receiveUserInput();
 
-   if(manager.removeNode(website)) {
-      std::cout << "The website's login was successfully removed!\n\n";
+   if(manager.verifyEntry(website)) {
+      manager.removeNode(website);
    } else {
-      std::cout << website << " could not be found!\n\n";
+      std::cerr << "The given login is not in the table!\n";
    }
 }
 
@@ -102,7 +105,7 @@ void PasswordManager::changeLogin()
    const std::string website = receiveUserInput();
    
    if(!manager.verifyEntry(website)) {
-      std::cout << "The given website could not be found!\n";
+      std::cerr << "The given website could not be found!\n";
       return;
    }
 

@@ -33,8 +33,8 @@ class HashTable
       bool removeNode(std::string_view key);
       login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
-      bool changeUsername(std::string_view key, std::string&& newUsername);
-      bool changePassword(std::string_view key, std::string&& newPassword);
+      void changeUsername(std::string_view key, std::string&& newUsername);
+      void changePassword(std::string_view key, std::string&& newPassword);
    
    private:
       std::size_t m_vectorSize{ 256 };

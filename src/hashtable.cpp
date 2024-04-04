@@ -90,7 +90,7 @@ bool HashTable::removeNode(std::string_view key)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
-         return entry.website == key;
+      return entry.website == key;
    });
 
    if(itr != m_table[hashValue].end()) {
@@ -108,10 +108,7 @@ login HashTable::searchTable(std::string_view key) const noexcept
       return entry.website == key;   
    });
 
-   if(itr != m_table[hashValue].end()) {
-      return *itr;
-   }
-   return{"NULL", "NULL", "NULL"};
+   return *itr;
 }
 
 void HashTable::printTable() const noexcept
@@ -127,30 +124,22 @@ void HashTable::printTable() const noexcept
    });
 }
 
-bool HashTable::changeUsername(std::string_view key, std::string&& newUsername)
+void HashTable::changeUsername(std::string_view key, std::string&& newUsername)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
       return entry.website == key;
    });
 
-   if(itr != m_table[hashValue].end()) {
-      itr->username = newUsername;
-      return true;
-   } 
-   return false;
+   itr->username = newUsername;
 }
 
-bool HashTable::changePassword(std::string_view key, std::string&& newPassword)
+void HashTable::changePassword(std::string_view key, std::string&& newPassword)
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {
       return entry.website == key;
    });
 
-   if(itr != m_table[hashValue].end()) {
-      itr->password = newPassword;
-      return true;
-   } 
-   return false;
+   itr->password = newPassword;
 }

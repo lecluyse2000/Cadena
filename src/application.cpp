@@ -32,7 +32,7 @@ uint8_t Application::receiveUserInputMenu() const
    std::string userInput; 
    while(!(std::cin >> userInput) || verifyUserInputMenu(userInput)) {
       clearInputStream();
-      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
+      std::cerr << "\nIncorrect input! Try again.\nYour choice: "; 
    }
    clearInputStream();
 
