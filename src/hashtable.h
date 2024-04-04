@@ -37,9 +37,9 @@ class HashTable
       void changePassword(std::string_view key, std::string&& newPassword);
    
    private:
-      std::size_t m_vectorSize{ 256 };
       uint16_t m_numberLogins{ 0 };
       std::vector<std::vector<login>> m_table;
+      std::vector<login> m_sortedTable;
       [[nodiscard]] constexpr std::size_t hashFunction(std::string_view key) const noexcept;
       void resize();
 };

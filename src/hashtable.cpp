@@ -37,7 +37,7 @@ bool HashTable::isEmpty() const noexcept
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    });
 
-   return hashValue & (m_vectorSize - 1);
+   return hashValue & (m_table.size() - 1);
 }
 
 bool HashTable::verifyEntry(std::string_view key) const noexcept
@@ -55,9 +55,8 @@ bool HashTable::verifyEntry(std::string_view key) const noexcept
 
 void HashTable::resize()
 {
-   m_vectorSize *= 2;
-   m_table.resize(m_vectorSize);
-   std::vector<std::vector<login>> newHashTable(m_vectorSize); 
+   m_table.resize(m_table.size() * 2);
+   std::vector<std::vector<login>> newHashTable(m_table.size()); 
 
    std::ranges::for_each(m_table, [&newHashTable, this](const std::vector<login>& vector) {
       std::ranges::for_each(vector, [&newHashTable, this](const login& entry) {
@@ -81,7 +80,7 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
    m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
    m_numberLogins++;
 
-   if(static_cast<double>(m_numberLogins) / m_vectorSize >= 0.7) {
+   if(static_cast<double>(m_numberLogins) / m_table.size() >= 0.7) {
       resize();
    }
 }
