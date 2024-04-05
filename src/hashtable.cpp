@@ -83,7 +83,7 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
    if(m_sortedTable.empty()) {
       m_sortedTable.emplace_back(std::move(key), std::move(username), std::move(value));
    } else {
-      
+
    }
 
    if(static_cast<double>(m_numberLogins) / m_table.size() >= 0.7) {
