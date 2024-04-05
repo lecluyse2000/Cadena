@@ -13,8 +13,6 @@
 #include <algorithm>
 #include "hashtable.h"
 
-#define PRIME_1 57649
-#define PRIME_2 86969
 
 HashTable::HashTable() : m_table(256) {}
 
@@ -27,12 +25,14 @@ HashTable::~HashTable()
 
 bool HashTable::isEmpty() const noexcept 
 {
-   return m_numberLogins == 0;
+   return m_table.empty();
 }
 
 [[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
-   size_t hashValue = 76963;
+   std::size_t hashValue = 76963;
+   constexpr int PRIME_1 = 57649;
+   constexpr int PRIME_2 = 86969;
    std::ranges::for_each(key, [&hashValue](const char character) {
       hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
    });
@@ -79,6 +79,12 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
    const std::size_t hashValue = hashFunction(key);
    m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
    m_numberLogins++;
+
+   if(m_sortedTable.empty()) {
+      m_sortedTable.emplace_back(std::move(key), std::move(username), std::move(value));
+   } else {
+      
+   }
 
    if(static_cast<double>(m_numberLogins) / m_table.size() >= 0.7) {
       resize();
