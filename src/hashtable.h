@@ -20,6 +20,10 @@ struct login
    login(std::string&& webpage, std::string&& loginID,
          std::string&& passphrase)
          : website(webpage), username(loginID), password(passphrase) {}
+
+   login(std::string& webpage, std::string& loginID,
+         std::string& passphrase)
+         : website(webpage), username(loginID), password(passphrase) {}
 };
 
 class HashTable
@@ -39,7 +43,6 @@ class HashTable
    private:
       uint16_t m_numberLogins{ 0 };
       std::vector<std::vector<login>> m_table;
-      std::vector<login> m_sortedTable;
       [[nodiscard]] constexpr std::size_t hashFunction(std::string_view key) const noexcept;
       void resize();
 };
