@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <cstdint>
 #include "passwordmanager.h"
 
 class Application
@@ -23,7 +24,7 @@ class Application
       void printMenu() const noexcept;
       void clearInputStream() const;  
       bool verifyUserInputMenu(std::string& input) const;
-      uint8_t receiveUserInputMenu() const;
+      std::uint8_t receiveUserInputMenu() const;
       void userInterface();
 };
 

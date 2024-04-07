@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <cstdint>
 #include "application.h"
 #include "passwordmanager.h"
 
@@ -27,16 +28,16 @@ bool Application::verifyUserInputMenu(std::string& input) const
           || std::stoi(input) > 6 || std::stoi(input) < 1); 
 }
 
-uint8_t Application::receiveUserInputMenu() const
+std::uint8_t Application::receiveUserInputMenu() const
 {
    std::string userInput; 
-   while(!(std::cin >> userInput) || verifyUserInputMenu(userInput)) {
+   while(!(std::cin >> userInput) || verifyUserInputMenu(userInput) || (!std::cin.eof() && std::cin.peek() != '\n')) {
       clearInputStream();
-      std::cerr << "\nIncorrect input! Try again.\nYour choice: "; 
+      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
    }
    clearInputStream();
 
-   return static_cast<uint8_t>(std::stoi(userInput));
+   return static_cast<std::uint8_t>(std::stoi(userInput));
 }
 
 void Application::userInterface() 

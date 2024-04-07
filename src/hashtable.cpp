@@ -13,8 +13,8 @@
 #include <algorithm>
 #include "hashtable.h"
 
-
-HashTable::HashTable() : m_table(256) {}
+static constexpr int primeOne{ 57'649 };
+static constexpr int primeTwo{ 86'969 };
 
 HashTable::~HashTable()
 {
@@ -30,11 +30,9 @@ bool HashTable::isEmpty() const noexcept
 
 [[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
-   std::size_t hashValue = 76963;
-   constexpr int PRIME_1 = 57649;
-   constexpr int PRIME_2 = 86969;
+   std::size_t hashValue = 76'963;
    std::ranges::for_each(key, [&hashValue](const char character) {
-      hashValue = (hashValue * PRIME_1) ^ (character * PRIME_2);
+      hashValue = (hashValue * primeOne) ^ (character * primeTwo);
    });
 
    return hashValue & (m_table.size() - 1);
@@ -68,7 +66,7 @@ void HashTable::resize()
    m_table.swap(newHashTable);
 }
 
-void HashTable::insertNode(std::string& key, std::string& username, std::string& value)
+void HashTable::insertNode(std::string& key, std::string& username, std::string& password)
 {
    //717/1024 gives a load factor of .7, plus idk why anyone would need more than 200 logins
    //But I'll let them have upto 717, I honestly wasn't going to implement resizing but figured I probably should
@@ -77,7 +75,7 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
       return;
    }
    const std::size_t hashValue = hashFunction(key);
-   m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(value));
+   m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(password));
    m_numberLogins++;
 
    if(static_cast<double>(m_numberLogins) / m_table.size() >= 0.7) {

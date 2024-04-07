@@ -9,14 +9,14 @@
 #include <limits>
 #include <string>
 #include <string_view>
-#include <cstdint>
+#include <optional>
 #include "hashtable.h"
 
 class PasswordManager
 {
    public:
-      login getLogin() const;
-      void printLogin(const login& entry) const; 
+      std::optional<login> getLogin() const;
+      void printLogin(const std::optional<login>& entry) const; 
       void addLogin();
       void removeLogin();
       void printAllLogins() const noexcept;
