@@ -40,12 +40,12 @@ std::optional<login> PasswordManager::getLogin() const
 
 void PasswordManager::printLogin(const std::optional<login>& entry) const
 {
-   if(!entry) {
-      std::cout << "The login for the given website could not be found!\n\n";
-   } else {
+   if(entry) {
       const auto [website, username, password] = *entry;
       std::cout << "\nWebsite: " << website << "\nUsername:  " << username
                 << "\nPassword: " << password << '\n' << std::endl;
+   } else {
+      std::cout << "The login for the given website could not be found!\n\n";
    }
 }
 
