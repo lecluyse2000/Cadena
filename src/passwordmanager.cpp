@@ -7,6 +7,7 @@
 #include <string>
 #include <string_view>
 #include <optional>
+#include <stdexcept>
 #include "passwordmanager.h"
 #include "hashtable.h"
 
@@ -60,7 +61,12 @@ void PasswordManager::addLogin()
    std::cout << "What is the password you would like to add? ";
    std::string password = receiveUserInput();
 
-   manager.insertNode(website, username, password);
+   try {
+      manager.insertNode(website, username, password);
+   }
+   catch(const std::runtime_error& rte) {
+      std::cerr << "ERROR: " << rte.what();
+   }
 }
 
 void PasswordManager::removeLogin()

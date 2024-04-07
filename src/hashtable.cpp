@@ -11,6 +11,7 @@
 #include <string_view>
 #include <iostream>
 #include <algorithm>
+#include <stdexcept>
 #include "hashtable.h"
 
 static constexpr int primeOne{ 57'649 };
@@ -71,8 +72,7 @@ void HashTable::insertNode(std::string& key, std::string& username, std::string&
    //717/1024 gives a load factor of .7, plus idk why anyone would need more than 200 logins
    //But I'll let them have upto 717, I honestly wasn't going to implement resizing but figured I probably should
    if(m_numberLogins + 1 == 717) {
-      std::cerr << "MAX number of logins reached! Why do you have so many logins?\n";
-      return;
+      throw(std::runtime_error("MAX number of logins reached!\n"));
    }
    const std::size_t hashValue = hashFunction(key);
    m_table[hashValue].emplace_back(std::move(key), std::move(username), std::move(password));
