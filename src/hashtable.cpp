@@ -46,10 +46,7 @@ bool HashTable::verifyEntry(std::string_view key) const noexcept
       return entry.website == key;
    });
    
-   if(itr != m_table[hashValue].end()) {
-      return true;
-   }
-   return false;
+   return itr != m_table[hashValue].end();
 }
 
 void HashTable::resize()
