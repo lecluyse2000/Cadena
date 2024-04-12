@@ -1,14 +1,1 @@
-# Ignore all
-*
-# Unignore all with extensions
-!*.*
-# Unignore all dirs
-!*/
-!.gitignore
-!makefile
-
-# Ignore .o files
-*.o
-*.tar.gz
-*.txt
-*.bin
+/build
