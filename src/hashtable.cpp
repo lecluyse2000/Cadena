@@ -4,7 +4,6 @@
 //Purpose: Implement a password manager in c++ using a hash table, so I can better understand the data structure
 
 
-#include <ranges>
 #include <vector>
 #include <utility>
 #include <string>

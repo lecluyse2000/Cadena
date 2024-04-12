@@ -5,9 +5,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <iostream>
 #include <string>
-#include <limits>
 #include <cstdint>
 #include "passwordmanager.h"
 
