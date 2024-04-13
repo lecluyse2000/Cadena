@@ -4,8 +4,13 @@ project(Cadena)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB SOURCES "src/*.cpp")
+add_executable(Cadena)
 
-include_directories("src")
+target_sources(Cadena PRIVATE
+    "src/main.cpp"
+    "src/application.cpp"
+    "src/passwordmanager.cpp"
+    "src/hashtable.cpp"
+)
 
-add_executable(Cadena ${SOURCES})
+target_include_directories(Cadena PUBLIC "src")
