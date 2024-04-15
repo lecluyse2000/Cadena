@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.29)
 project(Cadena)
 
+add_compile_options(-Wall -Wextra)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
