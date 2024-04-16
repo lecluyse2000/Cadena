@@ -1,13 +1,14 @@
-//Author: Caden LeCluyse
-//Date: 3/25/24
-//Filename: application.cpp
+// Author: Caden LeCluyse
+// Date: 3/25/24
+// Filename: application.cpp
 
-
-#include <iostream>
-#include <string>
-#include <limits>
-#include <cstdint>
 #include "application.h"
+
+#include <cstdint>
+#include <iostream>
+#include <limits>
+#include <string>
+
 #include "passwordmanager.h"
 
 void Application::printMenu() const noexcept
@@ -24,26 +25,25 @@ void Application::clearInputStream() const
 
 bool Application::verifyUserInputMenu(std::string& input) const
 {
-   return(input.size() != 1 || !isdigit(input[0]) 
-          || std::stoi(input) > 6 || std::stoi(input) < 1); 
+   return (input.size() != 1 || !isdigit(input[0]) || std::stoi(input) > 6 || std::stoi(input) < 1);
 }
 
 std::uint8_t Application::receiveUserInputMenu() const
 {
-   std::string userInput; 
-   while(!(std::cin >> userInput) || verifyUserInputMenu(userInput) || (!std::cin.eof() && std::cin.peek() != '\n')) {
+   std::string userInput;
+   while (!(std::cin >> userInput) || verifyUserInputMenu(userInput) || (!std::cin.eof() && std::cin.peek() != '\n')) {
       clearInputStream();
-      std::cout << "\nIncorrect input! Try again.\nYour choice: "; 
+      std::cout << "\nIncorrect input! Try again.\nYour choice: ";
    }
    clearInputStream();
 
    return static_cast<std::uint8_t>(std::stoi(userInput));
 }
 
-void Application::userInterface() 
+void Application::userInterface()
 {
    printMenu();
-   switch(receiveUserInputMenu()) {
+   switch (receiveUserInputMenu()) {
       case 1:
          database.printAllLogins();
          break;
@@ -54,7 +54,7 @@ void Application::userInterface()
          database.addLogin();
          break;
       case 4:
-         database.removeLogin(); 
+         database.removeLogin();
          break;
       case 5:
          database.changeLogin();
@@ -77,10 +77,10 @@ void Application::run()
       std::cout << "Libsodium initialized successfully!\n\n";
    }
    */
-   
+
    std::cout << "Welcome to Caden's Password Manager!\n";
 
-   while(loopFlag) {
+   while (loopFlag) {
       userInterface();
    }
 }

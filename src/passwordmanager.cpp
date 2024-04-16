@@ -1,14 +1,16 @@
-//Author: Caden LeCluyse
-//Date: 3/25/24
-//Filename: passwordmanager.cpp 
+// Author: Caden LeCluyse
+// Date: 3/25/24
+// Filename: passwordmanager.cpp
+
+#include "passwordmanager.h"
 
 #include <iostream>
 #include <limits>
-#include <string>
-#include <string_view>
 #include <optional>
 #include <stdexcept>
-#include "passwordmanager.h"
+#include <string>
+#include <string_view>
+
 #include "hashtable.h"
 
 void PasswordManager::clearInputStream() const
@@ -20,12 +22,12 @@ void PasswordManager::clearInputStream() const
 std::string PasswordManager::receiveUserInput() const
 {
    std::string returnString;
-   while(!(std::cin >> returnString) || (!std::cin.eof() && std::cin.peek() != '\n')) {
+   while (!(std::cin >> returnString) || (!std::cin.eof() && std::cin.peek() != '\n')) {
       clearInputStream();
       std::cout << "Failed to recieve input, try again! ";
    }
    clearInputStream();
-   
+
    return returnString;
 }
 
@@ -33,7 +35,7 @@ std::optional<login> PasswordManager::getLogin() const
 {
    std::cout << "\nWhat is the website of the login you want to get? ";
    std::string website = receiveUserInput();
-   if(manager.verifyEntry(website)) {
+   if (manager.verifyEntry(website)) {
       return manager.searchTable(website);
    }
    return std::nullopt;
@@ -41,10 +43,10 @@ std::optional<login> PasswordManager::getLogin() const
 
 void PasswordManager::printLogin(const std::optional<login>& entry) const
 {
-   if(entry) {
+   if (entry) {
       const auto [website, username, password] = *entry;
-      std::cout << "\nWebsite: " << website << "\nUsername:  " << username
-                << "\nPassword: " << password << '\n' << std::endl;
+      std::cout << "\nWebsite: " << website << "\nUsername:  " << username << "\nPassword: " << password << '\n'
+                << std::endl;
    } else {
       std::cout << "The login for the given website could not be found!\n\n";
    }
@@ -63,8 +65,7 @@ void PasswordManager::addLogin()
 
    try {
       manager.insertNode(website, username, password);
-   }
-   catch(const std::runtime_error& rte) {
+   } catch (const std::runtime_error& rte) {
       std::cerr << "ERROR: " << rte.what();
    }
 }
@@ -74,7 +75,7 @@ void PasswordManager::removeLogin()
    std::cout << "\nWhat is the name of the website you want to remove? ";
    const std::string website = receiveUserInput();
 
-   if(manager.verifyEntry(website)) {
+   if (manager.verifyEntry(website)) {
       manager.removeNode(website);
       std::cout << "The login was removed!\n\n";
    } else {
@@ -84,7 +85,7 @@ void PasswordManager::removeLogin()
 
 void PasswordManager::printAllLogins() const noexcept
 {
-   if(manager.isEmpty()) {
+   if (manager.isEmpty()) {
       std::cout << "You don't have any passwords added!\n\n";
    } else {
       manager.printTable();
@@ -96,7 +97,6 @@ void PasswordManager::changeUsername(std::string_view website)
    std::cout << "What is the new username? ";
    std::string username = receiveUserInput();
    manager.changeUsername(website, std::move(username));
-
 }
 
 void PasswordManager::changePassword(std::string_view website)
@@ -111,21 +111,21 @@ void PasswordManager::changeLogin()
    char usernameFlag = 'n';
    std::cout << "What is the website of the login you wish to change? ";
    const std::string website = receiveUserInput();
-   
-   if(!manager.verifyEntry(website)) {
+
+   if (!manager.verifyEntry(website)) {
       std::cout << "The given website could not be found!\n";
       return;
    }
 
    std::cout << "Would  you like to change your username? (Y/N): ";
-   while(!(std::cin >> usernameFlag) || (toupper(usernameFlag) != 'N' && toupper(usernameFlag) != 'Y')
-         || (!std::cin.eof() && std::cin.peek() != '\n')) {
+   while (!(std::cin >> usernameFlag) || (toupper(usernameFlag) != 'N' && toupper(usernameFlag) != 'Y') ||
+          (!std::cin.eof() && std::cin.peek() != '\n')) {
       clearInputStream();
       std::cout << "Failed to recieve input! Try again! ";
    }
    clearInputStream();
 
-   if(toupper(usernameFlag) == 'Y') {
+   if (toupper(usernameFlag) == 'Y') {
       changeUsername(website);
    }
    changePassword(website);

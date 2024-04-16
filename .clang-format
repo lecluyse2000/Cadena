@@ -1,0 +1,11 @@
+BasedOnStyle: Google
+IndentWidth: 3
+TabWidth: 3
+AccessModifierOffset: 0
+IndentAccessModifiers: true 
+UseTab: Never
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBraces: Linux 
+AllowShortLambdasOnASingleLine: false 
+ColumnLimit: 120
