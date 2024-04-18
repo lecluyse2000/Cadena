@@ -21,7 +21,7 @@ class Application
       void printMenu() const noexcept;
       void clearInputStream() const;
       bool verifyUserInputMenu(std::string& input) const;
-      std::uint8_t receiveUserInputMenu() const;
+      [[nodiscard]] std::uint8_t receiveUserInputMenu() const;
       void userInterface();
 };
 

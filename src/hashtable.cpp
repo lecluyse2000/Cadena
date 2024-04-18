@@ -23,7 +23,7 @@ HashTable::~HashTable()
    });
 }
 
-bool HashTable::isEmpty() const noexcept { return m_table.empty(); }
+[[nodiscard]] bool HashTable::isEmpty() const noexcept { return m_table.empty(); }
 
 [[nodiscard]] constexpr std::size_t HashTable::hashFunction(std::string_view key) const noexcept
 {
@@ -35,7 +35,7 @@ bool HashTable::isEmpty() const noexcept { return m_table.empty(); }
    return hashValue & (m_table.size() - 1);
 }
 
-bool HashTable::verifyEntry(std::string_view key) const noexcept
+[[nodiscard]] bool HashTable::verifyEntry(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [&key](const login& entry) {
@@ -87,7 +87,7 @@ void HashTable::removeNode(std::string_view key)
    m_numberLogins--;
 }
 
-login HashTable::searchTable(std::string_view key) const noexcept
+[[nodiscard]] login HashTable::searchTable(std::string_view key) const noexcept
 {
    const std::size_t hashValue = hashFunction(key);
    const auto itr = std::ranges::find_if(m_table[hashValue], [key](const login& entry) {

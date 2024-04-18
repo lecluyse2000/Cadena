@@ -24,7 +24,7 @@ class PasswordManager
   private:
    HashTable manager;
    void clearInputStream() const;
-   std::string receiveUserInput() const;
+   [[nodiscard]] std::string receiveUserInput() const;
    void changeUsername(std::string_view website);
    void changePassword(std::string_view website);
 };

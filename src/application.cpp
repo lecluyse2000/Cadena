@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <iostream>
 #include <limits>
+#include <stdexcept>
 #include <string>
 
 #include "passwordmanager.h"
@@ -28,7 +29,7 @@ bool Application::verifyUserInputMenu(std::string& input) const
    return (input.size() != 1 || !isdigit(input[0]) || std::stoi(input) > 6 || std::stoi(input) < 1);
 }
 
-std::uint8_t Application::receiveUserInputMenu() const
+[[nodiscard]] std::uint8_t Application::receiveUserInputMenu() const
 {
    std::string userInput;
    while (!(std::cin >> userInput) || verifyUserInputMenu(userInput) || (!std::cin.eof() && std::cin.peek() != '\n')) {
@@ -51,7 +52,11 @@ void Application::userInterface()
          database.printLogin(database.getLogin());
          break;
       case 3:
-         database.addLogin();
+         try {
+            database.addLogin();
+         } catch (const std::runtime_error& err) {
+            std::cerr << "ERROR:\n\t" << err.what();
+         }
          break;
       case 4:
          database.removeLogin();

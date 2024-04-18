@@ -7,7 +7,6 @@
 #include <iostream>
 #include <limits>
 #include <optional>
-#include <stdexcept>
 #include <string>
 #include <string_view>
 
@@ -19,7 +18,7 @@ void PasswordManager::clearInputStream() const
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-std::string PasswordManager::receiveUserInput() const
+[[nodiscard]] std::string PasswordManager::receiveUserInput() const
 {
    std::string returnString;
    while (!(std::cin >> returnString) || (!std::cin.eof() && std::cin.peek() != '\n')) {
@@ -63,11 +62,7 @@ void PasswordManager::addLogin()
    std::cout << "What is the password you would like to add? ";
    std::string password = receiveUserInput();
 
-   try {
-      manager.insertNode(website, username, password);
-   } catch (const std::runtime_error& rte) {
-      std::cerr << "ERROR: " << rte.what();
-   }
+   manager.insertNode(website, username, password);
 }
 
 void PasswordManager::removeLogin()

@@ -25,11 +25,11 @@ class HashTable
    public:
       HashTable() : m_table(256) {}
       ~HashTable();
-      bool isEmpty() const noexcept;
-      bool verifyEntry(std::string_view key) const noexcept;
+      [[nodiscard]] bool isEmpty() const noexcept;
+      [[nodiscard]] bool verifyEntry(std::string_view key) const noexcept;
       void insertNode(std::string& key, std::string& username, std::string& password);
       void removeNode(std::string_view key);
-      login searchTable(std::string_view key) const noexcept;
+      [[nodiscard]] login searchTable(std::string_view key) const noexcept;
       void printTable() const noexcept;
       void changeUsername(std::string_view key, std::string&& newUsername);
       void changePassword(std::string_view key, std::string&& newPassword);
