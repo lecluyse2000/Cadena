@@ -13,8 +13,8 @@
 #include <utility>
 #include <vector>
 
-static constexpr int primeOne{ 57'649 };
-static constexpr int primeTwo{ 86'969 };
+inline constexpr int primeOne{ 57'649 };
+inline constexpr int primeTwo{ 86'969 };
 
 HashTable::~HashTable()
 {
